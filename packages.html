@@ -110,46 +110,6 @@ then <span class="type">ValueError</span> is raised. No escaping is performed.</
 escaping. Use this only if you are certain that there is no possibility of HTML
 injection.</div>
             </div>
-            <div class="section">
-<h1>postgres</h1>
-<p>This package provides a limited, but usable interface for interacting with a
-postgres server.</p>
-
-<h3>Result</h3>
-<p>The <span class="type">Result</span> class provides a wrapper over the result of querying the postgres
-database. The class provides a very basic set of methods to allow interaction
-with the rows as a <span class="type">List[String]</span>.</p>
-
-<span class="funcname">Result.close</span><span class><strong>(self: Result)</strong></span>
-<div class="explain">Close a <span class="type">Result</span> and free all data associated with it. If this is not done
-manually, then it is done automatically when the <span class="type">Result</span> is destroyed through
-either the gc or refcounting.</div>
-
-<span class="funcname">Result.each_row</span><span class><strong>(self: Result, fn: Function(List[String]))</strong></span>
-<div class="explain">This loops through each row in <span class="varname">self</span>, calling <span class="varname">fn</span> for each row that is found.
-If <span class="varname">self</span> has no rows, or has been closed, then this does nothing.</div>
-
-<span class="funcname">Result.row_count</span><span class><strong>(self: Result): Integer</strong></span>
-<div class="explain">Returns the number of rows present within <span class="varname">self</span>.</div>
-
-<h3>Conn</h3>
-<p>The <span class="type">Conn</span> class represents a connection to a postgres server.</p>
-
-<span class="funcname">Conn.query</span><span class><strong>(self: Conn, format: String, values: List[String]...):Either[String, Result]</strong></span>
-<div class="explain">Perform a query using <span class="varname">format</span>. Any "?" value found within <span class="varname">format</span> will be
-replaced with an entry from <span class="varname">values</span>.
-<br />
-On success, the result is a <span class="type">Right</span> containing a <span class="type">Result</span>.
-<br />
-On failure, the result is a <span class="type">Left</span> containing a <span class="type">String</span> describing the error.</div>
-
-<span class="funcname">Conn.open</span><span class><strong>(host: *String="", port: *String="", dbname: *String="", name: *String="", pass: *String=""):Option[Conn]</strong></span>
-<div class="explain">Attempt to connect to the postgres server, using the values provided.
-<br />
-On success, the result is a <span class="type">Some</span> containing a newly-made <span class="type">Conn</span>.
-<br />
-On failure, the result is a <span class="type">None</span>.</div>
-            </div>
         </div>
 
         <!-- Bootstrap core JavaScript
