@@ -134,7 +134,7 @@
                     </dt>
                     <dt>
                         <span>
-                            <a href="#_ImportAndUse">import and use</a>
+                            <a href="#_Import">import</a>
                         </span>
                     </dt>
                     <dt>
@@ -1298,12 +1298,12 @@ So, such typecasting is not possible in Lily.
                 </p>
             </div>
             <div class="section">
-                <h1 id="_ImportAndUse">
-                    import and use
+                <h1 id="_Import">
+                    import
                 </h1>
                 <p>
 Thus far, all examples have run as though they were in the same file.
-Lily provides two different keywords for using code from other files: <span class="varname">import</span> and <span class="varname">use</span>.
+Lily provides the <span class="varname">import</span> keyword for using code from other files.
                 </p>
                 <p>
 The first keyword, <span class="varname">import</span>, loads a single module.
@@ -1375,44 +1375,14 @@ It's also possible to load a module under a different name (perhaps you wish to 
 It also shows that one can access modules that have been loaded in other modules.
                 </p>
                 <p>
-There are some limitations to import though.                    
+Lily's import system has been designed with sandboxing in mind.
+Lily won't check system paths, or use the environment to select where to load modules from.
+Instead, all loading is done relative to the first file that Lily runs.
+                </p>
+                <p>
+There are some limitations to import though.
 As of right now, there is no way to run a <code>from x import *</code> type import, or to be more selective <code>import (x, y, z) from abc</code>.
                 </p>
-                <p>
-But modules and <span class="varname">import</span> are only half of the story. 
-Suppose you have a grouping of modules, and you'd like to distribute them together.
-Lily terms this collection as a package.
-                </p>
-                <p>
-<span class="varname">use</span> is the keyword use for loading packages.
-Whereas <span class="varname">import</span> has many options, <span class="varname">use</span> is more restrictive.
-A use command must specify the name of a package.
-By default, Lily provides the <code>sys</code> package which holds argv.
-The mod_lily runner provides a <code>server</code> package that provides an api for talking to apache.
-                </p>
-                <p>
-Within any given package, the first file loaded is considered special.
-For one, only the first file is able to <span class="varname">use</span> packages.
-Determining what a package exports is simple: It's whatever that the first file loaded has available to it.
-You can thus look at the first file of a package to get a fair idea of what it needs, and what it provides.
-                </p>
-                <p>
-When <span class="varname">use</span> looks for a module, it searches relative from the first file of the current module.
-This design allows multiple versions of a package to exist at the same time.
-Packages are expected to be located in a <code>packages</code> directory relative to where the first file is.
-Like modules, packages can be either plain text (<code>.lly</code>) or a platform library.
-Given the directive <code>use json</code>, Lily will look for:
-                </p>
-                <p>
-<code>./packages/json/package.lly</code>
-                </p>
-                <p>
-<code>./packages/liblily_json.(dll/so)</code>
-                </p>
-                <p>
-...with the <code>./</code> including the relative path to the first file, if need be.
-                </p>
-                <p>
                 <p>
 Earlier, it was mentioned that Lily has two modes of operation: <code>standalone</code> and <code>template</code>.
 Regardless of the starting mode, the item is always loaded in <code>standalone</code> mode.
