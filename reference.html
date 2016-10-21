@@ -55,6 +55,17 @@
 <h1>builtin</h1>
 <p>The builtin package provides the classes, vars, and functions that form the
 foundation of Lily.</p>
+<h5><span class="varname">stdin</span><span>:</span><span class="type">File</span></h5>
+
+<div class="explain">Provides a wrapper around the <span class="varname">stdin</span> present within C.</div>
+<h5><span class="varname">stderr</span><span>:</span><span class="type">File</span></h5>
+
+<div class="explain">Provides a wrapper around the <span class="varname">stderr</span> present within C.</div>
+<h5><span class="varname">stdout</span><span>:</span><span class="type">File</span></h5>
+
+<div class="explain">Provides a wrapper around the <span class="varname">stdin</span> present within C. The builtin function
+<span class="varname">print</span> relies on this, and thus might raise <span class="type">IOError</span> if <span class="varname">stdout</span> is closed or
+set to a read-only stream.</div>
 <h5><span class="funcname">print</span><span><strong>[A](value: A)</strong></span></h5>
 
 <div class="explain">Attempt to write <span class="varname">value</span> to <span class="varname">stdout</span>, including a terminating newline.
@@ -75,6 +86,14 @@ Raises <span class="type">IOError</span> if <span class="varname">stdout</span> 
 
 <div class="explain">Convert a <span class="type">Boolean</span> to a <span class="type">String</span>.</div>
 
+<h3>Byte</h3>
+<p>The <span class="type">Byte</span> class represents a wrapper over a single <span class="type">Byte</span> value. A <span class="type">Byte</span> value
+is always unsigned, giving it a range from 0 to 255. <span class="type">Byte</span> literals are written
+using <span class="varname">t</span> as the suffix on an <span class="type">Integer</span> value.</p>
+<h5><span class="funcname">Byte.to_i</span><span><strong>(self: Byte): Integer</strong></span></h5>
+
+<div class="explain">Convert a <span class="type">Byte</span> to an <span class="type">Integer</span>.</div>
+
 <h3>ByteString</h3>
 <p>The <span class="type">ByteString</span> class represents a bag of bytes. A <span class="type">ByteString</span> may have <span class="varname">\0</span>
 values embedded within it. It may also have data that is not valid as utf-8.
@@ -86,6 +105,10 @@ depends on the value of <span class="varname">encode</span>.
 <br />
 If encode is <span class="varname">"error"</span>, then invalid utf-8 or embedded <span class="varname">\0</span> values within <span class="type">self</span>
 will result in <span class="varname">None</span>.</div>
+
+<h3>DivisionByZeroError</h3>
+<p>The <span class="type">DivisionByZeroError</span> is a subclass of <span class="type">Exception</span> that is raised when
+trying to divide or modulo by zero.</p>
 
 <h3>Double</h3>
 <p>The <span class="type">Double</span> class exists as a wrapper over a C double.</p>
@@ -101,10 +124,9 @@ through a cast: <span class="varname">.@(type)</span>. The result of a cast is <
 <span class="varname">Some</span> on success and <span class="varname">None</span> on failure. Finally, casts are not allowed to hold
 polymorphic types, such as <span class="type">List</span> or <span class="type">Hash</span> or <span class="type">Function</span>, because Lily's vm
 only holds class information at runtime.</p>
-<h5><span class="funcname">Dynamic.new</span><span><strong>[A](self: A): Dynamic</strong></span></h5>
+<h5><span class="funcname">Dynamic</span><span><strong>[A](self: A): Dynamic</strong></span></h5>
 
-<div class="explain">Constructs a new <span class="type">Dynamic</span> value. This method exists as a convenience to allow
-a shorthand constructor (<span class="varname">Dynamic(&lt;value&gt;)</span>).
+<div class="explain">Constructs a new <span class="type">Dynamic</span> value.
 <br />
 While it is currently possible to place polymorphic values into <span class="type">Dynamic</span>, that
 ability will be removed in the future, as it is not possible to cast polymorphic
@@ -133,23 +155,9 @@ If <span class="varname">self</span> contains a <span class="varname">Right</spa
 If <span class="varname">self</span> contains a <span class="varname">Right</span>, produces <span class="varname">Right(B)</span>.</div>
 
 <h3>Exception</h3>
-<p>The <span class="type">Exception</span> class is the base class of all exceptions. The following
-children are also defined:
-<br />
-<span class="type">DivisionByZeroError</span> is raised when trying to divide or modulo by zero.
-<br />
-<span class="type">IndexError</span> is raised when an out-of-bounds access is performed on a <span class="type">List</span>.
-<br />
-<span class="type">IOError</span> is raised when an IO operation fails or does not have permission.
-<br />
-<span class="type">KeyError</span> is raised when trying to get an item from a <span class="type">Hash</span> that does not
-exist.
-<br />
-<span class="type">RuntimeError</span> is raised when the recursion limit is exceeded, or when trying
-to modify a <span class="type">Hash</span> while iterating over it.
-<br />
-<span class="type">ValueError</span> is raised when sending an improper argument to a function, such as
-trying to call <span class="varname">List.fill</span> with a negative amount.</p>
+<p>The <span class="type">Exception</span> class is the base class of all exceptions. It defines two
+properties: A <span class="varname">message</span> as <span class="type">String</span>, and a <span class="varname">traceback</span> as <span class="type">List[String]</span>. The
+<span class="varname">traceback</span> field is rewritten whenever an exception instance is raised.</p>
 
 <h3>File</h3>
 <p>The <span class="type">File</span> class provides a wrapper over a C FILE * struct. A <span class="type">File</span> is closed
@@ -162,6 +170,13 @@ possible to manually close a <span class="type">File</span>.</p>
 For standard streams, this marks the <span class="type">File</span> as closed, but does not actually
 close the stream. Embedders, therefore, do not need to worry about standard
 streams being altered or closed by Lily.</div>
+<h5><span class="funcname">File.each_line</span><span><strong>(self: File, fn: Function(ByteString))</strong></span></h5>
+
+<div class="explain">Read each line of text from <span class="varname">self</span>, passing it down to <span class="varname">fn</span> for processing.
+<br />
+Errors:
+<br />
+If <span class="varname">self</span> is not open for reading, or is closed, <span class="type">IOError</span> is raised.</div>
 <h5><span class="funcname">File.open</span><span><strong>(path: String, mode: String):File</strong></span></h5>
 
 <div class="explain">Attempt to open <span class="varname">path</span> using the <span class="varname">mode</span> given. <span class="varname">mode</span> may be one of the
@@ -281,9 +296,19 @@ function is a newly-made <span class="type">Hash</span> containing all values fo
 
 <div class="explain">Returns the number of key+value pairs present within <span class="varname">self</span>.</div>
 
+<h3>IndexError</h3>
+<p><span class="type">IndexError</span> is a subclass of <span class="type">Exception</span> that is raised when an out-of-bounds
+access is performed on a <span class="type">List</span>.</p>
+
 <h3>Integer</h3>
 <p>The <span class="type">Integer</span> class is Lily's native numeric type. Internally, it is a wrapper
 over a C int64_t.</p>
+<h5><span class="funcname">Integer.to_bool</span><span><strong>(self: Integer): Boolean</strong></span></h5>
+
+<div class="explain">Converts an <span class="type">Integer</span> to a <span class="type">Boolean</span>.</div>
+<h5><span class="funcname">Integer.to_byte</span><span><strong>(self: Integer): Byte</strong></span></h5>
+
+<div class="explain">Convert an <span class="type">Integer</span> to a <span class="type">Byte</span>, truncating the value if necessary.</div>
 <h5><span class="funcname">Integer.to_d</span><span><strong>(self: Integer): Double</strong></span></h5>
 
 <div class="explain">Converts an <span class="type">Integer</span> to a <span class="type">Double</span>. Internally, this is done by a typecast to
@@ -291,6 +316,14 @@ the <span class="type">Double</span> type (a raw C double).</div>
 <h5><span class="funcname">Integer.to_s</span><span><strong>(self: Integer): String</strong></span></h5>
 
 <div class="explain">Convert an <span class="type">Integer</span> to a <span class="type">String</span> using base-10.</div>
+
+<h3>IOError</h3>
+<p><span class="type">IOError</span> is a subclass of <span class="type">Exception</span> that is raised when an IO operation fails
+or does not have permission.</p>
+
+<h3>KeyError</h3>
+<p><span class="type">KeyError</span> is a subclass of <span class="type">Exception</span> that is raised when trying to get an
+item from a <span class="type">Hash</span> that does not exist.</p>
 
 <h3>List</h3>
 <p>The <span class="type">List</span> class represents a container of a given type, written as
@@ -445,6 +478,10 @@ Otherwise, this returns <span class="varname">alternate</span>.</div>
 <br />
 Otherwise, this returns the result of calling <span class="varname">fn</span>.</div>
 
+<h3>RuntimeError</h3>
+<p><span class="type">RuntimeError</span> is a subclass of <span class="type">Exception</span> that is raised when the recursion
+limit is exceeded, or when trying to modify a <span class="type">Hash</span> while iterating over it.</p>
+
 <h3>String</h3>
 <p>The <span class="type">String</span> class provides a wrapper over a C char *. The <span class="type">String</span> class is
 guaranteed to have a single <span class="varname">\0</span> terminator. Additionally, a <span class="type">String</span> is
@@ -539,7 +576,7 @@ returns <span class="varname">self</span>.</div>
 <p>The <span class="type">Tainted</span> type represents a wrapper over some data that is considered
 unsafe. Data, once inside a <span class="type">Tainted</span> value can only be retrieved using the
 <span class="varname">Tainted.sanitize</span> function.</p>
-<h5><span class="funcname">Tainted.sanitize</span><span><strong>[A](self: Tainted[A], fn: Function(A => B)): B</strong></span></h5>
+<h5><span class="funcname">Tainted.sanitize</span><span><strong>[A, B](self: Tainted[A], fn: Function(A => B)): B</strong></span></h5>
 
 <div class="explain">This calls <span class="varname">fn</span> with the value contained within <span class="varname">self</span>. <span class="varname">fn</span> is assumed to be a
 function that can sanitize the data within <span class="varname">self</span>.</div>
@@ -564,7 +601,12 @@ work on all <span class="type">Tuple</span> instances, regardless of the number 
 <h5><span class="funcname">Tuple.push</span><span><strong>[A](self: Tuple[1], other: A): Tuple[1, A]</strong></span></h5>
 
 <div class="explain">Build a new <span class="type">Tuple</span> composed of the contents of <span class="varname">self</span> and <span class="varname">other</span>.</div>
-        </div>
+
+<h3>ValueError</h3>
+<p><span class="type">ValueError</span> is a subclass of <span class="type">Exception</span> that is raised when sending an
+improper argument to a function, such as trying to call <span class="varname">List.fill</span> with a
+negative amount.</p>
+7        </div>
 
         <!-- Bootstrap core JavaScript
         ================================================== -->
