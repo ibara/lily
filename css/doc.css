@@ -1,26 +1,12 @@
-h5 {
-    margin-top: 20px;
-    font-weight: bold;
+h3 {
+    font-size: 18px;
+    margin-left: 10px;
 }
 
-h5:first-child {
-    margin-top: initial;
+h4 {
+    margin-left: 25px;
 }
 
-.funcname {
-    color: darkblue;
-    font-weight: bold;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
-.snippet {
-    background-color: #f5f5f5;
-    font-family: Monospace, Mono, "Courier New";
-    padding-left: 3px;
-    padding-right: 3px;
-}
-
-.explain {
-    margin-left: 20px;
+p, li {
+    margin-left: 30px;
 }

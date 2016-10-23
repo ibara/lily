@@ -55,558 +55,429 @@
 <h1>builtin</h1>
 <p>The builtin package provides the classes, vars, and functions that form the
 foundation of Lily.</p>
-<h5><span class="varname">stdin</span><span>:</span><span class="type">File</span></h5>
-
-<div class="explain">Provides a wrapper around the <span class="varname">stdin</span> present within C.</div>
-<h5><span class="varname">stderr</span><span>:</span><span class="type">File</span></h5>
-
-<div class="explain">Provides a wrapper around the <span class="varname">stderr</span> present within C.</div>
-<h5><span class="varname">stdout</span><span>:</span><span class="type">File</span></h5>
-
-<div class="explain">Provides a wrapper around the <span class="varname">stdin</span> present within C. The builtin function
-<span class="varname">print</span> relies on this, and thus might raise <span class="type">IOError</span> if <span class="varname">stdout</span> is closed or
-set to a read-only stream.</div>
-<h5><span class="funcname">print</span><span><strong>[A](value: A)</strong></span></h5>
-
-<div class="explain">Attempt to write <span class="varname">value</span> to <span class="varname">stdout</span>, including a terminating newline.
-<br />
-Errors:
-<br />
-Raises <span class="type">IOError</span> if <span class="varname">stdout</span> is closed or not open for writing.</div>
-<h5><span class="funcname">calltrace</span><span><strong>: List[String]</strong></span></h5>
-
-<div class="explain">Returns a <span class="type">List</span> with one <span class="type">String</span> for each function that is currently entered.</div>
-
-<h3>Boolean</h3>
-<p>The <span class="type">Boolean</span> class represents a value that is either <span class="varname">true</span> or <span class="varname">false</span>.</p>
-<h5><span class="funcname">Boolean.to_i</span><span><strong>(self: Boolean): Integer</strong></span></h5>
-
-<div class="explain">Convert a <span class="type">Boolean</span> to an <span class="type">Integer</span>. <span class="varname">true</span> becomes <span class="varname">1</span>, <span class="varname">false</span> becomes <span class="varname">0</span>.</div>
-<h5><span class="funcname">Boolean.to_s</span><span><strong>(self: Boolean): String</strong></span></h5>
-
-<div class="explain">Convert a <span class="type">Boolean</span> to a <span class="type">String</span>.</div>
-
-<h3>Byte</h3>
-<p>The <span class="type">Byte</span> class represents a wrapper over a single <span class="type">Byte</span> value. A <span class="type">Byte</span> value
-is always unsigned, giving it a range from 0 to 255. <span class="type">Byte</span> literals are written
-using <span class="varname">t</span> as the suffix on an <span class="type">Integer</span> value.</p>
-<h5><span class="funcname">Byte.to_i</span><span><strong>(self: Byte): Integer</strong></span></h5>
-
-<div class="explain">Convert a <span class="type">Byte</span> to an <span class="type">Integer</span>.</div>
-
-<h3>ByteString</h3>
-<p>The <span class="type">ByteString</span> class represents a bag of bytes. A <span class="type">ByteString</span> may have <span class="varname">\0</span>
+<h2>toplevel</h2>
+<h3>var stdin: <code>File</code></h3>
+<p>Provides a wrapper around the <code>stdin</code> present within C.</p>
+<h3>var stderr: <code>File</code></h3>
+<p>Provides a wrapper around the <code>stderr</code> present within C.</p>
+<h3>var stdout: <code>File</code></h3>
+<p>Provides a wrapper around the <code>stdout</code> present within C.</p>
+<h3>define print<code>[A](value: A)</code></h3>
+<p>Write <code>value</code> to <code>stdout</code>, plus a newline (<code>"\n"</code>). This is equivalent to
+<code>stdout.print(value)</code>.</p>
+<h4>Errors:</h4>
+<ul>
+<li><code>IOError</code> if <code>stdout</code> is closed, or not open for reading.</li>
+</ul>
+<h3>define calltrace<code>: List[String]</code></h3>
+<p>Returns a <code>List</code> with one <code>String</code> for each function that is currently entered.</p>
+<h2>class Boolean</h2>
+<p>The <code>Boolean</code> class represents a value that is either <code>true</code> or <code>false</code>.</p>
+<h3>method Boolean.to_i<code>(self: Boolean): Integer</code></h3>
+<p>Convert a <code>Boolean</code> to an <code>Integer</code>. <code>true</code> becomes <code>1</code>, <code>false</code> becomes <code>0</code>.</p>
+<h3>method Boolean.to_s<code>(self: Boolean): String</code></h3>
+<p>Convert a <code>Boolean</code> to a <code>String</code>.</p>
+<h2>class Byte</h2>
+<p>The <code>Byte</code> class represents a wrapper over a single <code>Byte</code> value. A <code>Byte</code> value
+is always unsigned, giving it a range from 0 to 255. <code>Byte</code> literals are written
+using 't' as the suffix on an <code>Integer</code> value.</p>
+<h3>method Byte.to_i<code>(self: Byte): Integer</code></h3>
+<p>Convert a <code>Byte</code> to an <code>Integer</code>.</p>
+<h2>class ByteString</h2>
+<p>The <code>ByteString</code> class represents a bag of bytes. A <code>ByteString</code> may have '\0'
 values embedded within it. It may also have data that is not valid as utf-8.
-The <span class="type">ByteString</span> class currently does not support any primitive operations.</p>
-<h5><span class="funcname">ByteString.encode</span><span><strong>(self: ByteString, encode: *String="error"): Option[String]</strong></span></h5>
-
-<div class="explain">Attempt to transform the given <span class="type">ByteString</span> into a <span class="type">String</span>. The action taken
-depends on the value of <span class="varname">encode</span>.
-<br />
-If encode is <span class="varname">"error"</span>, then invalid utf-8 or embedded <span class="varname">\0</span> values within <span class="type">self</span>
-will result in <span class="varname">None</span>.</div>
-
-<h3>DivisionByZeroError</h3>
-<p>The <span class="type">DivisionByZeroError</span> is a subclass of <span class="type">Exception</span> that is raised when
+The <code>ByteString</code> class currently does not support any primitive operations.</p>
+<h3>method ByteString.encode<code>(self: ByteString, encode: *String="error"): Option[String]</code></h3>
+<p>Attempt to transform the given <code>ByteString</code> into a <code>String</code>. The action taken
+depends on the value of <code>encode</code>.</p>
+<p>If encode is <code>"error"</code>, then invalid utf-8 or embedded '\0' values within <code>self</code>
+will result in <code>None</code>.</p>
+<h2>class DivisionByZeroError</h2>
+<p>The <code>DivisionByZeroError</code> is a subclass of <code>Exception</code> that is raised when
 trying to divide or modulo by zero.</p>
-
-<h3>Double</h3>
-<p>The <span class="type">Double</span> class exists as a wrapper over a C double.</p>
-<h5><span class="funcname">Double.to_i</span><span><strong>(self: Double): Integer</strong></span></h5>
-
-<div class="explain">Convert a <span class="type">Double</span> to an <span class="type">Integer</span>. This is done internally through a cast from
-a C double, to int64_t, the type of <span class="type">Integer</span>.</div>
-
-<h3>Dynamic</h3>
-<p>The <span class="type">Dynamic</span> class allows defering type checking until runtime. Creation of
-<span class="type">Dynamic</span> is done through <span class="varname">Dynamic(&lt;value&gt;)</span>. Extraction of values is done
-through a cast: <span class="varname">.@(type)</span>. The result of a cast is <span class="type">Option[&lt;type&gt;]</span>, with
-<span class="varname">Some</span> on success and <span class="varname">None</span> on failure. Finally, casts are not allowed to hold
-polymorphic types, such as <span class="type">List</span> or <span class="type">Hash</span> or <span class="type">Function</span>, because Lily's vm
+<h2>class Double</h2>
+<p>The <code>Double</code> class exists as a wrapper over a C double.</p>
+<h3>method Double.to_i<code>(self: Double): Integer</code></h3>
+<p>Convert a <code>Double</code> to an <code>Integer</code>. This is done internally through a cast from
+a C double, to int64_t, the type of <code>Integer</code>.</p>
+<h2>class Dynamic</h2>
+<p>The <code>Dynamic</code> class allows defering type checking until runtime. Creation of
+<code>Dynamic</code> is done through <code>Dynamic(&lt;value&gt;)</code>. Extraction of values is done
+through a cast: <code>.@(type)</code>. The result of a cast is <code>Option[&lt;type&gt;]</code>, with
+<code>Some</code> on success and <code>None</code> on failure. Finally, casts are not allowed to hold
+polymorphic types, such as <code>List</code> or <code>Hash</code> or <code>Function</code>, because Lily's vm
 only holds class information at runtime.</p>
-<h5><span class="funcname">Dynamic</span><span><strong>[A](self: A): Dynamic</strong></span></h5>
+<h3>constructor Dynamic<code>[A](self: A): Dynamic</code></h3>
+<p>Constructs a new <code>Dynamic</code> value. Call it using <code>Dynamic(&lt;value&gt;)</code>.</p>
+<h2>enum Either</h2>
+<pre><code>enum Either[A, B] {
+    Left(A)
+    Right(B)
+}
+</code></pre>
 
-<div class="explain">Constructs a new <span class="type">Dynamic</span> value.
-<br />
-While it is currently possible to place polymorphic values into <span class="type">Dynamic</span>, that
-ability will be removed in the future, as it is not possible to cast polymorphic
-values out of a <span class="type">Dynamic</span>.</div>
-
-<h3>Either</h3>
-<p>The <span class="type">Either</span> enum can be usd to represent an operation that may or may not
-succeed. Unlike <span class="type">Option</span>, <span class="type">Either</span> provides <span class="type">Left</span> which may be used to hold a
-useful error message in the event of a failure.
-</p>
-<h5><span class="funcname">Either.is_left</span><span><strong>[A, B](self: Either[A, B]): Boolean</strong></span></h5>
-
-<div class="explain">Return <span class="varname">true</span> if <span class="varname">self</span> contains a <span class="varname">Left</span>, <span class="varname">false</span> otherwise.</div>
-<h5><span class="funcname">Either.is_right</span><span><strong>[A, B](self: Either[A, B]): Boolean</strong></span></h5>
-
-<div class="explain">Return <span class="varname">true</span> if <span class="varname">self</span> contains a <span class="varname">Right</span>, <span class="varname">false</span> otherwise.</div>
-<h5><span class="funcname">Either.left</span><span><strong>[A, B](self: Either[A, B]):Option[A]</strong></span></h5>
-
-<div class="explain">If <span class="varname">self</span> contains a <span class="varname">Left</span>, produces a <span class="varname">Some(A)</span>.
-<br />
-If <span class="varname">self</span> contains a <span class="varname">Right</span>, produces <span class="varname">None</span>.</div>
-<h5><span class="funcname">Either.right</span><span><strong>[A, B](self: Either[A, B]): Option[B]</strong></span></h5>
-
-<div class="explain">If <span class="varname">self</span> contains a <span class="varname">Left</span>, produces a <span class="varname">None</span>.
-<br />
-If <span class="varname">self</span> contains a <span class="varname">Right</span>, produces <span class="varname">Right(B)</span>.</div>
-
-<h3>Exception</h3>
-<p>The <span class="type">Exception</span> class is the base class of all exceptions. It defines two
-properties: A <span class="varname">message</span> as <span class="type">String</span>, and a <span class="varname">traceback</span> as <span class="type">List[String]</span>. The
-<span class="varname">traceback</span> field is rewritten whenever an exception instance is raised.</p>
-
-<h3>File</h3>
-<p>The <span class="type">File</span> class provides a wrapper over a C FILE * struct. A <span class="type">File</span> is closed
+<p><code>Either</code> is an enum that holds a <code>Left</code> on failure, or <code>Right</code> on success. It
+can be used as the return type of an operation that may fail, and have an error
+message to display.</p>
+<h3>method Either.is_left<code>[A, B](self: Either[A, B]): Boolean</code></h3>
+<p>Return <code>true</code> if <code>self</code> contains a <code>Left</code>, <code>false</code> otherwise.</p>
+<h3>method Either.is_right<code>[A, B](self: Either[A, B]): Boolean</code></h3>
+<p>Return <code>true</code> if <code>self</code> contains a <code>Right</code>, <code>false</code> otherwise.</p>
+<h3>method Either.left<code>[A, B](self: Either[A, B]):Option[A]</code></h3>
+<p>If <code>self</code> contains a <code>Left</code>, produces a <code>Some(A)</code>.</p>
+<p>If <code>self</code> contains a <code>Right</code>, produces <code>None</code>.</p>
+<h3>method Either.right<code>[A, B](self: Either[A, B]): Option[B]</code></h3>
+<p>If <code>self</code> contains a <code>Left</code>, produces a <code>None</code>.</p>
+<p>If <code>self</code> contains a <code>Right</code>, produces <code>Right(B)</code>.</p>
+<h2>class Exception</h2>
+<p>The <code>Exception</code> class is the base class of all exceptions. It defines two
+properties: A <code>message</code> as <code>String</code>, and a <code>traceback</code> as <code>List[String]</code>. The
+<code>traceback</code> field is rewritten whenever an exception instance is raised.</p>
+<h2>class File</h2>
+<p>The <code>File</code> class provides a wrapper over a C FILE * struct. A <code>File</code> is closed
 automatically when a scope exits (though not immediately). However, it is also
-possible to manually close a <span class="type">File</span>.</p>
-<h5><span class="funcname">File.close</span><span><strong>(self: File)</strong></span></h5>
-
-<div class="explain">Close <span class="varname">self</span> if it is open, or do nothing if already closed.
-<br />
-For standard streams, this marks the <span class="type">File</span> as closed, but does not actually
+possible to manually close a <code>File</code>.</p>
+<h3>method File.close<code>(self: File)</code></h3>
+<p>Close <code>self</code> if it is open, or do nothing if already closed.</p>
+<p>For standard streams, this marks the <code>File</code> as closed, but does not actually
 close the stream. Embedders, therefore, do not need to worry about standard
-streams being altered or closed by Lily.</div>
-<h5><span class="funcname">File.each_line</span><span><strong>(self: File, fn: Function(ByteString))</strong></span></h5>
-
-<div class="explain">Read each line of text from <span class="varname">self</span>, passing it down to <span class="varname">fn</span> for processing.
-<br />
-Errors:
-<br />
-If <span class="varname">self</span> is not open for reading, or is closed, <span class="type">IOError</span> is raised.</div>
-<h5><span class="funcname">File.open</span><span><strong>(path: String, mode: String):File</strong></span></h5>
-
-<div class="explain">Attempt to open <span class="varname">path</span> using the <span class="varname">mode</span> given. <span class="varname">mode</span> may be one of the
-following:
-<br />
-<span class="varname">"r"</span> (readonly, must exist)
-<br />
-<span class="varname">"w"</span> (writeonly)
-<br />
-<span class="varname">"a"</span> (append, create if not exist)
-<br />
-<span class="varname">"r+"</span> (read+write, must exist)
-<br />
-<span class="varname">"w+"</span> (read+write, creates an empty file if needed)
-<br />
-<span class="varname">"a+"</span> (read+append)
-<br />
-Errors:
-<br />
-If unable to open <span class="varname">path</span>, or an invalid <span class="varname">mode</span> is provided, <span class="type">IOError</span> is raised.</div>
-<h5><span class="funcname">File.print</span><span><strong>[A](self: File, data: A)</strong></span></h5>
-
-<div class="explain">Attempt to write the contents of <span class="varname">data</span> to the file provided. <span class="varname">data</span> is written
-with a newline at the end.
-<br />
-Errors:
-<br />
-If <span class="varname">self</span> is closed or is not open for writing, <span class="type">IOError</span> is raised.</div>
-<h5><span class="funcname">File.read_line</span><span><strong>(self: File): ByteString</strong></span></h5>
-
-<div class="explain">Attempt to read a line of text from <span class="varname">self</span>. Currently, this function does not
+streams being altered or closed by Lily.</p>
+<h3>method File.each_line<code>(self: File, fn: Function(ByteString))</code></h3>
+<p>Read each line of text from <code>self</code>, passing it down to <code>fn</code> for processing.</p>
+<h4>Errors</h4>
+<ul>
+<li><code>IOError</code> if <code>self</code> is not open for reading, or is closed.</li>
+</ul>
+<h3>method File.open<code>(path: String, mode: String):File</code></h3>
+<p>Attempt to open <code>path</code> using the <code>mode</code> given. <code>mode</code> may be one of the
+following:</p>
+<ul>
+<li><code>"r"</code> (read only, must exist)</li>
+<li><code>"w"</code> (write only)</li>
+<li><code>"a"</code> (append, create if not exist)</li>
+<li><code>"r+"</code> (read+write, must exist)</li>
+<li><code>"w+"</code> (read+write, creates an empty file if needed)</li>
+<li><code>"a+"</code> (read+append)</li>
+</ul>
+<h4>Errors</h4>
+<ul>
+<li><code>IOError</code> if unable to open <code>path</code>, or an invalid <code>mode</code> is provided.</li>
+</ul>
+<h3>method File.print<code>[A](self: File, data: A)</code></h3>
+<p>Attempt to write the contents of <code>data</code> to the file provided. <code>data</code> is written
+with a newline at the end.</p>
+<h4>Errors</h4>
+<ul>
+<li><code>IOError</code> if <code>self</code> is closed or is not open for writing.</li>
+</ul>
+<h3>method File.read_line<code>(self: File): ByteString</code></h3>
+<p>Attempt to read a line of text from <code>self</code>. Currently, this function does not
 have a way to signal that the end of the file has been reached. For now, callers
-should check the result against <span class="varname">B""</span>. This will be fixed in a future release.
-<br />
-Errors:
-<br />
-If <span class="varname">self</span> is not open for reading, or is closed, <span class="type">IOError</span> is raised.</div>
-<h5><span class="funcname">File.write</span><span><strong>[A](self: File, data: A)</strong></span></h5>
-
-<div class="explain">Attempt to write the contents of <span class="varname">data</span> to the file provided.
-<br />
-Errors:
-<br />
-If <span class="varname">self</span> is closed or is not open for writing, <span class="type">IOError</span> is raised.</div>
-
-<h3>Function</h3>
-<p>The <span class="type">Function</span> class represents a block of code to be called, which may or may
-not produce a value. <span class="type">Function</span> values are first-class, and can be passed around
-as arguments, placed into a <span class="type">List</span>, and so on.
-<br />
-The arguments of a <span class="type">Function</span> are denoted within parentheses, with an optional
-colon at the end to denote the value returned:
-<br />
-<span class="type">Function(Integer): String</span> (return <span class="type">String</span>).
-<br />
-<span class="type">Function(String, String)</span> (no value returned).</p>
-
-<h3>Hash</h3>
-<p>The <span class="type">Hash</span> class provides a mapping between a key and a value. <span class="type">Hash</span> values can
-be created through <span class="varname">[key1 =&gt; value1, key2 =&gt; value2, ...]</span>. When writing a
-<span class="type">Hash</span>, the key is the first type, and the value is the second.
-<br />
-<span class="varname">[1 =&gt; "a", 2 =&gt; "b", 3 =&gt; "c"]</span> would therefore be written as
-<span class="type">Hash[Integer, String]</span>.
-<br />
-Currently, only <span class="type">Integer</span> and <span class="type">String</span> can be used as keys.</p>
-<h5><span class="funcname">Hash.clear</span><span><strong>[A, B](self: Hash[A, B])</strong></span></h5>
-
-<div class="explain">Removes all pairs currently present within <span class="varname">self</span>. No error occurs if <span class="varname">self</span> is
-currently being iterated over.</div>
-<h5><span class="funcname">Hash.delete</span><span><strong>[A, B](self: Hash[A, B], key: A)</strong></span></h5>
-
-<div class="explain">Attempt to remove <span class="varname">key</span> from <span class="varname">self</span>. If <span class="varname">key</span> is not present within <span class="varname">self</span>, then
-nothing happens.
-<br />
-Errors:
-<br />
-If <span class="varname">self</span> is currently being iterated over, <span class="type">RuntimeError</span> will be raised.</div>
-<h5><span class="funcname">Hash.each_pair</span><span><strong>[A, B](self: Hash[A, B], fn: Function(A, B))</strong></span></h5>
-
-<div class="explain">Iterate through each pair that is present within <span class="varname">self</span>. For each of the pairs,
-call <span class="varname">fn</span> with the key and value of each pair.</div>
-<h5><span class="funcname">Hash.get</span><span><strong>[A, B](self: Hash[A, B], key: A, default: B): B</strong></span></h5>
-
-<div class="explain">Attempt to find <span class="varname">key</span> within <span class="varname">self</span>. If <span class="varname">key</span> is present, then the value
-associated with it is returned. If <span class="varname">key</span> cannot be found, then <span class="varname">default</span> is
-returned instead.</div>
-<h5><span class="funcname">Hash.has_key</span><span><strong>[A, B](self: Hash[A, B], key: A):Boolean</strong></span></h5>
-
-<div class="explain">Return <span class="varname">true</span> if <span class="varname">key</span> is present within <span class="varname">self</span>, <span class="varname">false</span> otherwise.</div>
-<h5><span class="funcname">Hash.keys</span><span><strong>[A, B](self: Hash[A, B]): List[A]</strong></span></h5>
-
-<div class="explain">Construct a <span class="type">List</span> containing all values that are present within <span class="varname">self</span>. There
-is no guarantee of the ordering of the resulting <span class="type">List</span>.</div>
-<h5><span class="funcname">Hash.map_values</span><span><strong>[A, B, C](self: Hash[A, B], Function(B => C)): Hash[A, C]</strong></span></h5>
-
-<div class="explain">This iterates through <span class="varname">self</span> and calls <span class="varname">fn</span> for each element present. The result
-of this function is a newly-made <span class="type">Hash</span> where each value is the result of the
-call to <span class="varname">fn</span>.</div>
-<h5><span class="funcname">Hash.merge</span><span><strong>[A, B](self: Hash[A, B], others: Hash[A, B]...): Hash[A, B]</strong></span></h5>
-
-<div class="explain">Create a new <span class="type">Hash</span> that holds the result of <span class="varname">self</span> and each `Hash present
-within <span class="varname">others</span>.
-<br />
-When duplicate elements are found, the value of the right-most <span class="type">Hash</span> wins.</div>
-<h5><span class="funcname">Hash.reject</span><span><strong>[A, B](self: Hash[A, B], fn: Function(A, B => Boolean)): Hash[A, B]</strong></span></h5>
-
-<div class="explain">This calls <span class="varname">fn</span> for each element present within <span class="varname">self</span>. The result of this
-function is a newly-made <span class="type">Hash</span> containing all values for which <span class="varname">fn</span> returns
-<span class="varname">false</span>.</div>
-<h5><span class="funcname">Hash.select</span><span><strong>[A, B](self: Hash[A, B], fn: Function(A, B => Boolean)): Hash[A, B]</strong></span></h5>
-
-<div class="explain">This calls <span class="varname">fn</span> for each element present within <span class="varname">self</span>. The result of this
-function is a newly-made <span class="type">Hash</span> containing all values for which <span class="varname">fn</span> returns
-<span class="varname">true</span>.</div>
-<h5><span class="funcname">Hash.size</span><span><strong>[A, B](self: Hash[A, B]): Integer</strong></span></h5>
-
-<div class="explain">Returns the number of key+value pairs present within <span class="varname">self</span>.</div>
-
-<h3>IndexError</h3>
-<p><span class="type">IndexError</span> is a subclass of <span class="type">Exception</span> that is raised when an out-of-bounds
-access is performed on a <span class="type">List</span>.</p>
-
-<h3>Integer</h3>
-<p>The <span class="type">Integer</span> class is Lily's native numeric type. Internally, it is a wrapper
+should check the result against <code>B""</code>. This will be fixed in a future release.</p>
+<h4>Errors</h4>
+<ul>
+<li><code>IOError</code> if <code>self</code> is not open for reading, or is closed.</li>
+</ul>
+<h3>method File.write<code>[A](self: File, data: A)</code></h3>
+<p>Attempt to write the contents of <code>data</code> to the file provided.</p>
+<h4>Errors</h4>
+<ul>
+<li>If <code>self</code> is closed or is not open for writing, <code>IOError</code> is raised.</li>
+</ul>
+<h2>class Function</h2>
+<p>The <code>Function</code> class represents a block of code to be called, which may or may
+not produce a value. <code>Function</code> values are first-class, and can be passed around
+as arguments, placed into a <code>List</code>, and so on.</p>
+<p>The arguments of a <code>Function</code> are denoted within parentheses, with an optional
+colon at the end to denote the value returned:</p>
+<p><code>Function(Integer): String</code> (return <code>String</code>).</p>
+<p><code>Function(String, String)</code> (no value returned).</p>
+<h2>class Hash</h2>
+<p>The <code>Hash</code> class provides a mapping between a key and a value. <code>Hash</code> values can
+be created through <code>[key1 =&gt; value1, key2 =&gt; value2, ...]</code>. When writing a
+<code>Hash</code>, the key is the first type, and the value is the second.</p>
+<p><code>[1 =&gt; "a", 2 =&gt; "b", 3 =&gt; "c"]</code> would therefore be written as
+<code>Hash[Integer, String]</code>.</p>
+<p>Currently, only <code>Integer</code> and <code>String</code> can be used as keys.</p>
+<h3>method Hash.clear<code>[A, B](self: Hash[A, B])</code></h3>
+<p>Removes all pairs currently present within <code>self</code>.</p>
+<h4>Errors</h4>
+<ul>
+<li><code>RuntimeError</code> if <code>self</code> is currently being iterated over.</li>
+</ul>
+<h3>method Hash.delete<code>[A, B](self: Hash[A, B], key: A)</code></h3>
+<p>Attempt to remove <code>key</code> from <code>self</code>. If <code>key</code> is not present within <code>self</code>, then
+nothing happens.</p>
+<h4>Errors</h4>
+<ul>
+<li><code>RuntimeError</code> if <code>self</code> is currently being iterated over.</li>
+</ul>
+<h3>method Hash.each_pair<code>[A, B](self: Hash[A, B], fn: Function(A, B))</code></h3>
+<p>Iterate through each pair that is present within <code>self</code>. For each of the pairs,
+call <code>fn</code> with the key and value of each pair.</p>
+<h3>method Hash.get<code>[A, B](self: Hash[A, B], key: A, default: B): B</code></h3>
+<p>Attempt to find <code>key</code> within <code>self</code>. If <code>key</code> is present, then the value
+associated with it is returned. If <code>key</code> cannot be found, then <code>default</code> is
+returned instead.</p>
+<h3>method Hash.has_key<code>[A, B](self: Hash[A, B], key: A):Boolean</code></h3>
+<p>Return <code>true</code> if <code>key</code> is present within <code>self</code>, <code>false</code> otherwise.</p>
+<h3>method Hash.keys<code>[A, B](self: Hash[A, B]): List[A]</code></h3>
+<p>Construct a <code>List</code> containing all values that are present within <code>self</code>. There
+is no guarantee of the ordering of the resulting <code>List</code>.</p>
+<h3>method Hash.map_values<code>[A, B, C](self: Hash[A, B], Function(B =&gt; C)): Hash[A, C]</code></h3>
+<p>This iterates through <code>self</code> and calls <code>fn</code> for each element present. The result
+of this function is a newly-made <code>Hash</code> where each value is the result of the
+call to <code>fn</code>.</p>
+<h3>method Hash.merge<code>[A, B](self: Hash[A, B], others: Hash[A, B]...): Hash[A, B]</code></h3>
+<p>Create a new <code>Hash</code> that holds the result of <code>self</code> and each <code>Hash present
+within</code>others`.</p>
+<p>When duplicate elements are found, the value of the right-most <code>Hash</code> wins.</p>
+<h3>method Hash.reject<code>[A, B](self: Hash[A, B], fn: Function(A, B =&gt; Boolean)): Hash[A, B]</code></h3>
+<p>This calls <code>fn</code> for each element present within <code>self</code>. The result of this
+function is a newly-made <code>Hash</code> containing all values for which <code>fn</code> returns
+<code>false</code>.</p>
+<h3>method Hash.select<code>[A, B](self: Hash[A, B], fn: Function(A, B =&gt; Boolean)): Hash[A, B]</code></h3>
+<p>This calls <code>fn</code> for each element present within <code>self</code>. The result of this
+function is a newly-made <code>Hash</code> containing all values for which <code>fn</code> returns
+<code>true</code>.</p>
+<h3>method Hash.size<code>[A, B](self: Hash[A, B]): Integer</code></h3>
+<p>Returns the number of key+value pairs present within <code>self</code>.</p>
+<h2>class IndexError</h2>
+<p><code>IndexError</code> is a subclass of <code>Exception</code> that is raised when an out-of-bounds
+access is performed on a <code>List</code>.</p>
+<h2>class Integer</h2>
+<p>The <code>Integer</code> class is Lily's native numeric type. Internally, it is a wrapper
 over a C int64_t.</p>
-<h5><span class="funcname">Integer.to_bool</span><span><strong>(self: Integer): Boolean</strong></span></h5>
-
-<div class="explain">Converts an <span class="type">Integer</span> to a <span class="type">Boolean</span>.</div>
-<h5><span class="funcname">Integer.to_byte</span><span><strong>(self: Integer): Byte</strong></span></h5>
-
-<div class="explain">Convert an <span class="type">Integer</span> to a <span class="type">Byte</span>, truncating the value if necessary.</div>
-<h5><span class="funcname">Integer.to_d</span><span><strong>(self: Integer): Double</strong></span></h5>
-
-<div class="explain">Converts an <span class="type">Integer</span> to a <span class="type">Double</span>. Internally, this is done by a typecast to
-the <span class="type">Double</span> type (a raw C double).</div>
-<h5><span class="funcname">Integer.to_s</span><span><strong>(self: Integer): String</strong></span></h5>
-
-<div class="explain">Convert an <span class="type">Integer</span> to a <span class="type">String</span> using base-10.</div>
-
-<h3>IOError</h3>
-<p><span class="type">IOError</span> is a subclass of <span class="type">Exception</span> that is raised when an IO operation fails
+<h3>method Integer.to_bool<code>(self: Integer): Boolean</code></h3>
+<p>Converts an <code>Integer</code> to a <code>Boolean</code>.</p>
+<h3>method Integer.to_byte<code>(self: Integer): Byte</code></h3>
+<p>Convert an <code>Integer</code> to a <code>Byte</code>, truncating the value if necessary.</p>
+<h3>method Integer.to_d<code>(self: Integer): Double</code></h3>
+<p>Converts an <code>Integer</code> to a <code>Double</code>. Internally, this is done by a typecast to
+the <code>Double</code> type (a raw C double).</p>
+<h3>method Integer.to_s<code>(self: Integer): String</code></h3>
+<p>Convert an <code>Integer</code> to a <code>String</code> using base-10.</p>
+<h2>class IOError</h2>
+<p><code>IOError</code> is a subclass of <code>Exception</code> that is raised when an IO operation fails
 or does not have permission.</p>
-
-<h3>KeyError</h3>
-<p><span class="type">KeyError</span> is a subclass of <span class="type">Exception</span> that is raised when trying to get an
-item from a <span class="type">Hash</span> that does not exist.</p>
-
-<h3>List</h3>
-<p>The <span class="type">List</span> class represents a container of a given type, written as
-<span class="type">List[&lt;inner type&gt;]</span>. A <span class="type">List</span> value can be accessed through a positive index or
+<h2>class KeyError</h2>
+<p><code>KeyError</code> is a subclass of <code>Exception</code> that is raised when trying to get an
+item from a <code>Hash</code> that does not exist.</p>
+<h2>class List</h2>
+<p>The <code>List</code> class represents a container of a given type, written as
+<code>List[&lt;inner type&gt;]</code>. A <code>List</code> value can be accessed through a positive index or
 a negative one (with negative indexes being an offset from the end). Attempting
-to access an invalid index will produce <span class="type">IndexError</span>.</p>
-<h5><span class="funcname">List.clear</span><span><strong>[A](self: List[A])</strong></span></h5>
+to access an invalid index will produce <code>IndexError</code>.</p>
+<h3>method List.clear<code>[A](self: List[A])</code></h3>
+<p>Removes all elements present within <code>self</code>. No error is raised if <code>self</code> is
+being iterated over.</p>
+<h3>method List.count<code>[A](self: List[A], fn: Function(A =&gt; Boolean)): Integer</code></h3>
+<p>This calls <code>fn</code> for each element within <code>self</code>. The result of this function is
+the number of times that <code>fn</code> returns <code>true</code>.</p>
+<h3>method List.delete_at<code>[A](self: List[A], index: Integer)</code></h3>
+<p>Attempts to remove index from the List. If index is negative, then it is
+considered an offset from the end of the List.</p>
+<h4>Errors</h4>
+<ul>
+<li><code>IndexError</code> if <code>index</code> is out of range.</li>
+</ul>
+<h3>method List.each<code>[A](self: List[A], fn: Function(A)): List[A]</code></h3>
+<p>Calls <code>fn</code> for each element within <code>self</code>. The result of this function is
+<code>self</code>, so that this method can be chained with others.</p>
+<h3>method List.each_index<code>[A](self: List[A], fn: Function(Integer)): List[A]</code></h3>
+<p>Calls <code>fn</code> for each element within <code>self</code>. Rather than receive the elements of
+<code>self</code>, <code>fn</code> instead receives the index of each element.</p>
+<h3>method List.fill<code>[A](count: Integer, value: A): List[A]</code></h3>
+<p>This createa a new <code>List</code> that contains <code>value</code> repeated <code>count</code> times.</p>
+<h4>Errors</h4>
+<ul>
+<li><code>ValueError</code> if <code>count</code> is less than 1.</li>
+</ul>
+<h3>method List.fold<code>[A](self: List[A], start: A, fn: Function(A, A =&gt; A)): A</code></h3>
+<p>This calls <code>fn</code> for each element present within <code>self</code>. The first value sent to
+<code>fn</code> is initially <code>start</code>, but will later be the result of <code>fn</code>. Therefore, the
+value as it accumulates can be found in the first value sent to <code>fn</code>.</p>
+<p>The result of this function is the result of doing an accumulation on each
+element within <code>self</code>.</p>
+<h3>method List.insert<code>[A](self: List[A], index: Integer, value: A)</code></h3>
+<p>Attempt to insert <code>value</code> at <code>index</code> within <code>self</code>. If index is negative, then
+it is treated as an offset from the end of <code>self</code>.</p>
+<h4>Errors</h4>
+<ul>
+<li><code>IndexError</code> if <code>index</code> is not within <code>self</code>.</li>
+</ul>
+<h3>method List.join<code>[A](self: List[A], separator: *String=""): String</code></h3>
+<p>Create a <code>String</code> consisting of the elements of <code>self</code> interleaved with
+<code>separator</code>. The elements of self are converted to a <code>String</code> as if they were
+interpolated. If <code>self</code> is empty, then the result is an empty <code>String</code>.</p>
+<h3>method List.map<code>[A,B](self: List[A], fn: Function(A =&gt; B)): List[B]</code></h3>
+<p>This calls <code>fn</code> on each element within <code>self</code>. The result of this function is a
+newly-made <code>List</code> containing the results of <code>fn</code>.</p>
+<h3>method List.pop<code>[A](self: List[A]): A</code></h3>
+<p>Attempt to remove and return the last element within <code>self</code>.</p>
+<h4>Errors</h4>
+<ul>
+<li><code>IndexError</code> if <code>self</code> is empty.</li>
+</ul>
+<h3>method List.push<code>[A](self: List[A], value: A)</code></h3>
+<p>Add <code>value</code> to the end of <code>self</code>.</p>
+<h3>method List.reject<code>[A](self: List[A], fn: Function(A =&gt; Boolean)): List[A]</code></h3>
+<p>This calls <code>fn</code> for each element within <code>self</code>. The result is a newly-made
+<code>List</code> holding each element where <code>fn</code> returns <code>false</code>.</p>
+<h3>method List.select<code>[A](self: List[A], fn: Function(A =&gt; Boolean)): List[A]</code></h3>
+<p>This calls <code>fn</code> for each element within <code>self</code>. The result is a newly-made
+<code>List</code> holding each element where <code>fn</code> returns <code>true</code>.</p>
+<h3>method List.size<code>[A](self: List[A]): Integer</code></h3>
+<p>Returns the number of elements that are within <code>self</code>.</p>
+<h3>method List.shift<code>[A](self: List[A]): A</code></h3>
+<p>This attempts to remove the last element from <code>self</code> and return it.</p>
+<h4>Errors</h4>
+<ul>
+<li><code>ValueError</code> if <code>self</code> is empty.</li>
+</ul>
+<h3>method List.unshift<code>[A](self: List[A], value: A)</code></h3>
+<p>Inserts value at the front of self, moving all other elements to the right.</p>
+<h2>enum Option</h2>
+<pre><code>enum Option[A] {
+    Some(A)
+    None
+}
+</code></pre>
 
-<div class="explain">Removes all elements present within <span class="varname">self</span>. No error is raised if <span class="varname">self</span> is
-being iterated over.</div>
-<h5><span class="funcname">List.count</span><span><strong>[A](self: List[A], fn: Function(A => Boolean)): Integer</strong></span></h5>
-
-<div class="explain">This calls <span class="varname">fn</span> for each element within <span class="varname">self</span>. The result of this function is
-the number of times that <span class="varname">fn</span> returns 'true.</div>
-<h5><span class="funcname">List.delete_at</span><span><strong>[A](self: List[A], index: Integer)</strong></span></h5>
-
-<div class="explain">Attempts to remove index from the List. If index is negative, then it is
-considered an offset from the end of the List.
-<br />
-Errors:
-<br />
-Raises <span class="type">IndexError</span> if <span class="varname">index</span> (after adjustment) is not a valid index.</div>
-<h5><span class="funcname">List.each</span><span><strong>[A](self: List[A], fn: Function(A)): List[A]</strong></span></h5>
-
-<div class="explain">Calls <span class="varname">fn</span> for each element within <span class="varname">self</span>. The result of this function is
-<span class="varname">self</span>, so that this method can be chained with others.</div>
-<h5><span class="funcname">List.each_index</span><span><strong>[A](self: List[A], fn: Function(Integer)): List[A]</strong></span></h5>
-
-<div class="explain">Calls <span class="varname">fn</span> for each element within <span class="varname">self</span>. Rather than receive the elements of
-<span class="varname">self</span>, <span class="varname">fn</span> instead receives the index of each element.</div>
-<h5><span class="funcname">List.fill</span><span><strong>[A](count: Integer, value: A): List[A]</strong></span></h5>
-
-<div class="explain">This createa a new <span class="type">List</span> that contains <span class="varname">value</span> repeated <span class="varname">count</span> times.
-<br />
-Errors:
-<br />
-Raises <span class="type">ValueError</span> if <span class="varname">count</span> is less than 1.</div>
-<h5><span class="funcname">List.fold</span><span><strong>[A](self: List[A], start: A, fn: Function(A, A => A)): A</strong></span></h5>
-
-<div class="explain">This calls <span class="varname">fn</span> for each element present within <span class="varname">self</span>. The first value sent to
-<span class="varname">fn</span> is initially <span class="varname">start</span>, but will later be the result of <span class="varname">fn</span>. Therefore, the
-value as it accumulates can be found in the first value sent to <span class="varname">fn</span>.
-<br />
-The result of this function is the result of doing an accumulation on each
-element within <span class="varname">self</span>.</div>
-<h5><span class="funcname">List.insert</span><span><strong>[A](self: List[A], index: Integer, value: A)</strong></span></h5>
-
-<div class="explain">Attempt to insert <span class="varname">value</span> at <span class="varname">index</span> within <span class="varname">self</span>. If index is negative, then
-it is treated as an offset from the end of <span class="varname">self</span>.
-<br />
-Errors:
-<br />
-Raises <span class="type">IndexError</span> if <span class="varname">index</span> is not within <span class="varname">self</span>.</div>
-<h5><span class="funcname">List.join</span><span><strong>[A](self: List[A], separator: *String=""): String</strong></span></h5>
-
-<div class="explain">Create a <span class="type">String</span> consisting of the elements of <span class="varname">self</span> interleaved with
-<span class="varname">separator</span>. The elements of self are converted to a <span class="type">String</span> as if they were
-interpolated. If <span class="varname">self</span> is empty, then the result is an empty <span class="type">String</span>.</div>
-<h5><span class="funcname">List.map</span><span><strong>[A,B](self: List[A], fn: Function(A => B)): List[B]</strong></span></h5>
-
-<div class="explain">This calls <span class="varname">fn</span> on each element within <span class="varname">self</span>. The result of this function is a
-newly-made <span class="type">List</span> containing the results of <span class="varname">fn</span>.</div>
-<h5><span class="funcname">List.pop</span><span><strong>[A](self: List[A]): A</strong></span></h5>
-
-<div class="explain">Attempt to remove and return the last element within <span class="varname">self</span>.
-<br />
-Errors:
-<br />
-Raises <span class="type">IndexError</span> if <span class="varname">self</span> is empty.</div>
-<h5><span class="funcname">List.push</span><span><strong>[A](self: List[A], value: A)</strong></span></h5>
-
-<div class="explain">Add <span class="varname">value</span> to the end of <span class="varname">self</span>.</div>
-<h5><span class="funcname">List.reject</span><span><strong>[A](self: List[A], fn: Function(A => Boolean)): List[A]</strong></span></h5>
-
-<div class="explain">This calls <span class="varname">fn</span> for each element within <span class="varname">self</span>. The result is a newly-made
-<span class="type">List</span> holding each element where <span class="varname">fn</span> returns <span class="varname">false</span>.</div>
-<h5><span class="funcname">List.select</span><span><strong>[A](self: List[A], fn: Function(A => Boolean)): List[A]</strong></span></h5>
-
-<div class="explain">This calls <span class="varname">fn</span> for each element within <span class="varname">self</span>. The result is a newly-made
-<span class="type">List</span> holding each element where <span class="varname">fn</span> returns <span class="varname">true</span>.</div>
-<h5><span class="funcname">List.size</span><span><strong>[A](self: List[A]): Integer</strong></span></h5>
-
-<div class="explain">Returns the number of elements that are within <span class="varname">self</span>.</div>
-<h5><span class="funcname">List.shift</span><span><strong>[A](self: List[A]): A</strong></span></h5>
-
-<div class="explain">This attempts to remove the last element from <span class="varname">self</span> and return it.
-<br />
-Errors:
-<br />
-Raises <span class="type">ValueError</span> if <span class="varname">self</span> is empty.</div>
-<h5><span class="funcname">List.unshift</span><span><strong>[A](self: List[A], value: A)</strong></span></h5>
-
-<div class="explain">Inserts value at the front of self, moving all other elements to the right.</div>
-
-<h3>Option</h3>
-<p>The <span class="type">Option</span> type allows a variable to hold either a value of <span class="type">A</span> or to hold
-<span class="varname">None</span>, with <span class="varname">None</span> being valid for any <span class="type">Option</span>. The <span class="type">Option</span> type thus
-presents a way to have a function to fail without raising an exception, among
-many other uses.
-</p>
-<h5><span class="funcname">Option.and</span><span><strong>[A, B](self: Option[A], other: Option[B]): Option[B]</strong></span></h5>
-
-<div class="explain">If <span class="varname">self</span> is a <span class="varname">Some</span>, this returns <span class="varname">other</span>.
-<br />
-Otherwise, this returns <span class="varname">None</span>.</div>
-<h5><span class="funcname">Option.and_then</span><span><strong>[A, B](self: Option[A], fn: Function(A => Option[B])): Option[B]</strong></span></h5>
-
-<div class="explain">If <span class="varname">self</span> is a <span class="varname">Some</span>, this calls <span class="varname">fn</span> with the value within the <span class="varname">Some</span>. The
-result is the result of the <span class="type">Option</span> returned by <span class="varname">fn</span>.
-<br />
-Otherwise, this returns <span class="varname">None</span>.</div>
-<h5><span class="funcname">Option.is_none</span><span><strong>[A](self: Option[A]): Boolean</strong></span></h5>
-
-<div class="explain">If <span class="varname">self</span> is a <span class="varname">Some</span>, this returns <span class="varname">false</span>.
-<br />
-Otherwise, this returns <span class="varname">true</span>.</div>
-<h5><span class="funcname">Option.is_some</span><span><strong>[A](self: Option[A]): Boolean</strong></span></h5>
-
-<div class="explain">If <span class="varname">self</span> is a <span class="varname">Some</span>, this returns <span class="varname">true</span>.
-<br />
-Otherwise, this returns <span class="varname">false</span>.</div>
-<h5><span class="funcname">Option.map</span><span><strong>[A, B](self: Option[A], fn: Function(A => B)): Option[B]</strong></span></h5>
-
-<div class="explain">If <span class="varname">self</span> is a <span class="varname">Some</span>, this returns a <span class="varname">Some</span> holding the result of <span class="varname">fn</span>.
-<br />
-Otherwise, this returns <span class="varname">None</span>.</div>
-<h5><span class="funcname">Option.or</span><span><strong>[A](self: Option[A], alternate: Option[A]): Option[A]</strong></span></h5>
-
-<div class="explain">If <span class="varname">self</span> is a <span class="varname">Some</span>, this returns <span class="varname">self</span>.
-<br />
-Otherwise, this returns <span class="varname">alternate</span>.</div>
-<h5><span class="funcname">Option.or_else</span><span><strong>[A](self: Option[A], fn: Function( => Option[A])):Option[A]</strong></span></h5>
-
-<div class="explain">If <span class="varname">self</span> is a <span class="varname">Some</span>, this returns <span class="varname">self</span>.
-<br />
-Otherwise, this returns the result of calling <span class="varname">fn</span>.</div>
-<h5><span class="funcname">Option.unwrap</span><span><strong>[A](self: Option[A]): A</strong></span></h5>
-
-<div class="explain">If <span class="varname">self</span> is a <span class="varname">Some</span>, this returns the value contained within.
-<br />
-Errors:
-<br />
-Raises <span class="type">ValueError</span> if <span class="varname">self</span> is a <span class="varname">None</span>.</div>
-<h5><span class="funcname">Option.unwrap_or</span><span><strong>[A](self: Option[A], alternate: A):A</strong></span></h5>
-
-<div class="explain">If <span class="varname">self</span> is a <span class="varname">Some</span>, this returns the value with <span class="varname">self</span>.
-<br />
-Otherwise, this returns <span class="varname">alternate</span>.</div>
-<h5><span class="funcname">Option.unwrap_or_else</span><span><strong>[A](self: Option[A], fn: Function( => A)):A</strong></span></h5>
-
-<div class="explain">If <span class="varname">self</span> is a <span class="varname">Some</span>, this returns the value with <span class="varname">self</span>.
-<br />
-Otherwise, this returns the result of calling <span class="varname">fn</span>.</div>
-
-<h3>RuntimeError</h3>
-<p><span class="type">RuntimeError</span> is a subclass of <span class="type">Exception</span> that is raised when the recursion
-limit is exceeded, or when trying to modify a <span class="type">Hash</span> while iterating over it.</p>
-
-<h3>String</h3>
-<p>The <span class="type">String</span> class provides a wrapper over a C char *. The <span class="type">String</span> class is
-guaranteed to have a single <span class="varname">\0</span> terminator. Additionally, a <span class="type">String</span> is
-guaranteed to always be valid utf-8.
-<br />
-The methods on the <span class="type">String</span> class treat the underlying <span class="type">String</span> as being
-immutable, and thus always create a new <span class="type">String</span> instead of modifying the
+<p>The <code>Option</code> type presents a way to hold either a value of <code>A</code>, or <code>None</code>, with
+<code>None</code> being valid for any <code>Option</code>. A common use for this is as a return type
+for functions that may fail, but have no meaningful error message.</p>
+<h3>method Option.and<code>[A, B](self: Option[A], other: Option[B]): Option[B]</code></h3>
+<p>If <code>self</code> is a <code>Some</code>, this returns <code>other</code>.</p>
+<p>Otherwise, this returns <code>None</code>.</p>
+<h3>method Option.and_then<code>[A, B](self: Option[A], fn: Function(A =&gt; Option[B])): Option[B]</code></h3>
+<p>If <code>self</code> is a <code>Some</code>, this calls <code>fn</code> with the value within the <code>Some</code>. The
+result is the result of the <code>Option</code> returned by <code>fn</code>.</p>
+<p>Otherwise, this returns <code>None</code>.</p>
+<h3>method Option.is_none<code>[A](self: Option[A]): Boolean</code></h3>
+<p>If <code>self</code> is a <code>Some</code>, this returns <code>false</code>.</p>
+<p>Otherwise, this returns <code>true</code>.</p>
+<h3>method Option.is_some<code>[A](self: Option[A]): Boolean</code></h3>
+<p>If <code>self</code> is a <code>Some</code>, this returns <code>true</code>.</p>
+<p>Otherwise, this returns <code>false</code>.</p>
+<h3>method Option.map<code>[A, B](self: Option[A], fn: Function(A =&gt; B)): Option[B]</code></h3>
+<p>If <code>self</code> is a <code>Some</code>, this returns a <code>Some</code> holding the result of <code>fn</code>.</p>
+<p>Otherwise, this returns <code>None</code>.</p>
+<h3>method Option.or<code>[A](self: Option[A], alternate: Option[A]): Option[A]</code></h3>
+<p>If <code>self</code> is a <code>Some</code>, this returns <code>self</code>.</p>
+<p>Otherwise, this returns <code>alternate</code>.</p>
+<h3>method Option.or_else<code>[A](self: Option[A], fn: Function( =&gt; Option[A])):Option[A]</code></h3>
+<p>If <code>self</code> is a <code>Some</code>, this returns <code>self</code>.</p>
+<p>Otherwise, this returns the result of calling <code>fn</code>.</p>
+<h3>method Option.unwrap<code>[A](self: Option[A]): A</code></h3>
+<p>If <code>self</code> is a <code>Some</code>, this returns the value contained within.</p>
+<h4>Errors</h4>
+<ul>
+<li><code>ValueError</code> if <code>self</code> is <code>None</code>.</li>
+</ul>
+<h3>method Option.unwrap_or<code>[A](self: Option[A], alternate: A):A</code></h3>
+<p>If <code>self</code> is a <code>Some</code>, this returns the value with <code>self</code>.</p>
+<p>Otherwise, this returns <code>alternate</code>.</p>
+<h3>method Option.unwrap_or_else<code>[A](self: Option[A], fn: Function( =&gt; A)):A</code></h3>
+<p>If <code>self</code> is a <code>Some</code>, this returns the value with <code>self</code>.</p>
+<p>Otherwise, this returns the result of calling <code>fn</code>.</p>
+<h2>class RuntimeError</h2>
+<p><code>RuntimeError</code> is a subclass of <code>Exception</code> that is raised when the recursion
+limit is exceeded, or when trying to modify a <code>Hash</code> while iterating over it.</p>
+<h2>class String</h2>
+<p>The <code>String</code> class provides a wrapper over a C char *. The <code>String</code> class is
+guaranteed to have a single '\0' terminator. Additionally, a <code>String</code> is
+guaranteed to always be valid utf-8.</p>
+<p>The methods on the <code>String</code> class treat the underlying <code>String</code> as being
+immutable, and thus always create a new <code>String</code> instead of modifying the
 existing one.</p>
-<h5><span class="funcname">String.ends_with</span><span><strong>(self: String, end: String): Boolean</strong></span></h5>
-
-<div class="explain">Checks if <span class="varname">self</span> ends with <span class="varname">end</span>.</div>
-<h5><span class="funcname">String.find</span><span><strong>(self: String, needle: String): Option[Integer]</strong></span></h5>
-
-<div class="explain">Check for <span class="varname">needle</span> being within 'self.
-<br />
-If <span class="varname">needle</span> is found, the result is a <span class="varname">Some</span> holding the index.
-<br />
-Otherwise, this returns <span class="varname">None</span>.</div>
-<h5><span class="funcname">String.html_encode</span><span><strong>(self: String): String</strong></span></h5>
-
-<div class="explain">Check for one of <span class="varname">"&amp;"</span>, <span class="varname">"&lt;"</span>, or <span class="varname">"&gt;"</span> being within <span class="varname">self</span>.
-<br />
-If found, a new <span class="type">String</span> is contained with any instance of the above being
-replaced by an html-safe value.
-<br />
-If not found, <span class="varname">self</span> is returned.</div>
-<h5><span class="funcname">String.is_alnum</span><span><strong>(self: String):Boolean</strong></span></h5>
-
-<div class="explain">Return <span class="varname">true</span> if <span class="varname">self</span> has only alphanumeric([a-zA-Z0-9]+) characters, <span class="varname">false</span>
-otherwise.</div>
-<h5><span class="funcname">String.is_alpha</span><span><strong>(self: String):Boolean</strong></span></h5>
-
-<div class="explain">Return <span class="varname">true</span> if <span class="varname">self</span> has only alphabetical([a-zA-Z]+) characters, <span class="varname">false</span>
-otherwise.</div>
-<h5><span class="funcname">String.is_digit</span><span><strong>(self: String):Boolean</strong></span></h5>
-
-<div class="explain">Return <span class="varname">true</span> if <span class="varname">self</span> has only digit([0-9]+) characters, <span class="varname">false</span> otherwise.</div>
-<h5><span class="funcname">String.is_space</span><span><strong>(self: String):Boolean</strong></span></h5>
-
-<div class="explain">Returns <span class="varname">true</span> if <span class="varname">self</span> has only space(" \t\r\n") characters, <span class="varname">false</span>
-otherwise.</div>
-<h5><span class="funcname">String.lower</span><span><strong>(self: String):String</strong></span></h5>
-
-<div class="explain">Checks if any characters within <span class="varname">self</span> are within [A-Z]. If so, it creates a new
-<span class="type">String</span> with [A-Z] replaced by [a-z]. Otherwise, <span class="varname">self</span> is returned.</div>
-<h5><span class="funcname">String.lstrip</span><span><strong>(self: String, to_strip: String):String</strong></span></h5>
-
-<div class="explain">This walks through <span class="varname">self</span> from left to right, stopping on the first utf-8 chunk
-that is not found within <span class="varname">to_strip</span>. The result is a newly-made copy of self
-without the elements within <span class="varname">to_strip</span> at the front.</div>
-<h5><span class="funcname">String.parse_i</span><span><strong>(self: String): Option[Integer]</strong></span></h5>
-
-<div class="explain">Attempts to convert <span class="varname">self</span> into an <span class="type">Integer</span>. Currently, <span class="varname">self</span> is parsed as a
-base-10 encoded value.
-<br />
-If the value is a valid <span class="type">Integer</span>, then a <span class="varname">Some</span> containing the value is
-returned.
-<br />
-Otherwise, <span class="varname">None</span> is returned.</div>
-<h5><span class="funcname">String.rstrip</span><span><strong>(self: String, to_strip: String):String</strong></span></h5>
-
-<div class="explain">This walks through <span class="varname">self</span> from right to left, stopping on the first utf-8 chunk
-that is not found within <span class="varname">to_strip</span>. The result is a newly-made copy of <span class="varname">self</span>
-without the elements of <span class="varname">to_strip</span> at the end.</div>
-<h5><span class="funcname">String.split</span><span><strong>(self: String, split_by: *String=" "):List[String]</strong></span></h5>
-
-<div class="explain">This attempts to split <span class="varname">self</span> using <span class="varname">split_by</span>, with a default value of a single
-space.
-<br />
-Errors:
-<br />
-Raises <span class="type">ValueError</span> if <span class="varname">split_by</span> is empty.</div>
-<h5><span class="funcname">String.starts_with</span><span><strong>(self: String, with: String): Boolean</strong></span></h5>
-
-<div class="explain">Checks if <span class="varname">self</span> starts with <span class="varname">with</span>.</div>
-<h5><span class="funcname">String.strip</span><span><strong>(self: String, to_strip: String):String</strong></span></h5>
-
-<div class="explain">This walks through self from right to left, and then from left to right. The
-result of this is a newly-made <span class="type">String</span> without any elements within <span class="varname">to_strip</span>
-at either end.</div>
-<h5><span class="funcname">String.trim</span><span><strong>(self: String): String</strong></span></h5>
-
-<div class="explain">Checks if <span class="varname">self</span> starts or ends with any of <span class="varname">" \t\r\n"</span>. If it does, then a new
-<span class="type">String</span> is made with spaces removed from both sides. If it does not, then this
-returns <span class="varname">self</span>.</div>
-<h5><span class="funcname">String.upper</span><span><strong>(self: String):String</strong></span></h5>
-
-<div class="explain">Checks if any characters within self are within [a-z]. If so, it creates a new
-<span class="type">String</span> with [a-z] replaced by [A-Z]. Otherwise, <span class="varname">self</span> is returned.</div>
-
-<h3>Tainted</h3>
-<p>The <span class="type">Tainted</span> type represents a wrapper over some data that is considered
-unsafe. Data, once inside a <span class="type">Tainted</span> value can only be retrieved using the
-<span class="varname">Tainted.sanitize</span> function.</p>
-<h5><span class="funcname">Tainted.sanitize</span><span><strong>[A, B](self: Tainted[A], fn: Function(A => B)): B</strong></span></h5>
-
-<div class="explain">This calls <span class="varname">fn</span> with the value contained within <span class="varname">self</span>. <span class="varname">fn</span> is assumed to be a
-function that can sanitize the data within <span class="varname">self</span>.</div>
-
-<h3>Tuple</h3>
-<p>The <span class="type">Tuple</span> class provides a fixed-size container over a set of types. <span class="type">Tuple</span>
+<h3>method String.ends_with<code>(self: String, end: String): Boolean</code></h3>
+<p>Checks if <code>self</code> ends with <code>end</code>.</p>
+<h3>method String.find<code>(self: String, needle: String): Option[Integer]</code></h3>
+<p>Check for <code>needle</code> being within <code>self</code>.</p>
+<p>If <code>needle</code> is found, the result is a <code>Some</code> holding the index.</p>
+<p>Otherwise, this returns <code>None</code>.</p>
+<h3>method String.html_encode<code>(self: String): String</code></h3>
+<p>Check for one of <code>"&amp;"</code>, <code>"&lt;"</code>, or <code>"&gt;"</code> being within <code>self</code>.</p>
+<p>If found, a new <code>String</code> is contained with any instance of the above being
+replaced by an html-safe value.</p>
+<p>If not found, <code>self</code> is returned.</p>
+<h3>method String.is_alnum<code>(self: String):Boolean</code></h3>
+<p>Return <code>true</code> if <code>self</code> has only alphanumeric([a-zA-Z0-9]+) characters, <code>false</code>
+otherwise.</p>
+<h3>method String.is_alpha<code>(self: String):Boolean</code></h3>
+<p>Return <code>true</code> if <code>self</code> has only alphabetical([a-zA-Z]+) characters, <code>false</code>
+otherwise.</p>
+<h3>method String.is_digit<code>(self: String):Boolean</code></h3>
+<p>Return <code>true</code> if <code>self</code> has only digit([0-9]+) characters, <code>false</code> otherwise.</p>
+<h3>method String.is_space<code>(self: String):Boolean</code></h3>
+<p>Returns <code>true</code> if <code>self</code> has only space(" \t\r\n") characters, <code>false</code>
+otherwise.</p>
+<h3>method String.lower<code>(self: String):String</code></h3>
+<p>Checks if any characters within <code>self</code> are within [A-Z]. If so, it creates a new
+<code>String</code> with [A-Z] replaced by [a-z]. Otherwise, <code>self</code> is returned.</p>
+<h3>method String.lstrip<code>(self: String, to_strip: String):String</code></h3>
+<p>This walks through <code>self</code> from left to right, stopping on the first utf-8 chunk
+that is not found within <code>to_strip</code>. The result is a newly-made copy of self
+without the elements within <code>to_strip</code> at the front.</p>
+<h3>method String.parse_i<code>(self: String): Option[Integer]</code></h3>
+<p>Attempts to convert <code>self</code> into an <code>Integer</code>. Currently, <code>self</code> is parsed as a
+base-10 encoded value.</p>
+<p>If the value is a valid <code>Integer</code>, then a <code>Some</code> containing the value is
+returned.</p>
+<p>Otherwise, <code>None</code> is returned.</p>
+<h3>method String.rstrip<code>(self: String, to_strip: String):String</code></h3>
+<p>This walks through <code>self</code> from right to left, stopping on the first utf-8 chunk
+that is not found within <code>to_strip</code>. The result is a newly-made copy of <code>self</code>
+without the elements of <code>to_strip</code> at the end.</p>
+<h3>method String.split<code>(self: String, split_by: *String=" "):List[String]</code></h3>
+<p>This attempts to split <code>self</code> using <code>split_by</code>, with a default value of a single
+space.</p>
+<h4>Errors</h4>
+<ul>
+<li><code>ValueError</code> if <code>split_by</code> is empty.</li>
+</ul>
+<h3>method String.starts_with<code>(self: String, with: String): Boolean</code></h3>
+<p>Checks if <code>self</code> starts with <code>with</code>.</p>
+<h3>method String.strip<code>(self: String, to_strip: String):String</code></h3>
+<p>This walks through self from right to left, and then from left to right. The
+result of this is a newly-made <code>String</code> without any elements within <code>to_strip</code>
+at either end.</p>
+<h3>method String.trim<code>(self: String): String</code></h3>
+<p>Checks if <code>self</code> starts or ends with any of <code>" \t\r\n"</code>. If it does, then a new
+<code>String</code> is made with spaces removed from both sides. If it does not, then this
+returns <code>self</code>.</p>
+<h3>method String.upper<code>(self: String):String</code></h3>
+<p>Checks if any characters within self are within [a-z]. If so, it creates a new
+<code>String</code> with [a-z] replaced by [A-Z]. Otherwise, <code>self</code> is returned.</p>
+<h2>class Tainted</h2>
+<p>The <code>Tainted</code> type represents a wrapper over some data that is considered
+unsafe. Data, once inside a <code>Tainted</code> value can only be retrieved using the
+<code>Tainted.sanitize</code> function.</p>
+<h3>method Tainted.sanitize<code>[A, B](self: Tainted[A], fn: Function(A =&gt; B)): B</code></h3>
+<p>This calls <code>fn</code> with the value contained within <code>self</code>. <code>fn</code> is assumed to be a
+function that can sanitize the data within <code>self</code>.</p>
+<h2>class Tuple</h2>
+<p>The <code>Tuple</code> class provides a fixed-size container over a set of types. <code>Tuple</code>
 is ideal for situations where a variety of data is needed, but a class is too
-complex.
-<br />
-<span class="type">Tuple</span> literals are created by <span class="varname">&lt;[value1, value2, ...]&gt;</span>. Member of the <span class="type">Tuple</span>
-class can be accessed through subscripts. Unlike <span class="type">List</span>, <span class="type">Tuple</span> does not
-support negative indexes.
-<br />
-Operations on the <span class="type">Tuple</span> class use the types <span class="type">1</span> and <span class="type">2</span>. These are special
-types that match against any number of types. This allows <span class="type">Tuple</span> operations to
-work on all <span class="type">Tuple</span> instances, regardless of the number of elements within the
-<span class="type">Tuple</span> (sometimes considered its arity).</p>
-<h5><span class="funcname">Tuple.merge</span><span><strong>(self: Tuple[1], other: Tuple[2]): Tuple[1, 2]</strong></span></h5>
-
-<div class="explain">Build a new <span class="type">Tuple</span> composed of the contents of <span class="varname">self</span> and the contents of
-<span class="varname">other</span>.</div>
-<h5><span class="funcname">Tuple.push</span><span><strong>[A](self: Tuple[1], other: A): Tuple[1, A]</strong></span></h5>
-
-<div class="explain">Build a new <span class="type">Tuple</span> composed of the contents of <span class="varname">self</span> and <span class="varname">other</span>.</div>
-
-<h3>ValueError</h3>
-<p><span class="type">ValueError</span> is a subclass of <span class="type">Exception</span> that is raised when sending an
-improper argument to a function, such as trying to call <span class="varname">List.fill</span> with a
+complex.</p>
+<p><code>Tuple</code> literals are created by <code>&lt;[value1, value2, ...]&gt;</code>. Member of the <code>Tuple</code>
+class can be accessed through subscripts. Unlike <code>List</code>, <code>Tuple</code> does not
+support negative indexes.</p>
+<p>Operations on the <code>Tuple</code> class use the types <code>1</code> and <code>2</code>. These are special
+types that match against any number of types. This allows <code>Tuple</code> operations to
+work on all <code>Tuple</code> instances, regardless of the number of elements within the
+<code>Tuple</code> (sometimes considered its arity).</p>
+<h3>method Tuple.merge<code>(self: Tuple[1], other: Tuple[2]): Tuple[1, 2]</code></h3>
+<p>Build a new <code>Tuple</code> composed of the contents of <code>self</code> and the contents of
+<code>other</code>.</p>
+<h3>method Tuple.push<code>[A](self: Tuple[1], other: A): Tuple[1, A]</code></h3>
+<p>Build a new <code>Tuple</code> composed of the contents of <code>self</code> and <code>other</code>.</p>
+<h2>class ValueError</h2>
+<p><code>ValueError</code> is a subclass of <code>Exception</code> that is raised when sending an
+improper argument to a function, such as trying to call <code>List.fill</code> with a
 negative amount.</p>
-7        </div>
+        </div>
 
         <!-- Bootstrap core JavaScript
         ================================================== -->

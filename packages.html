@@ -9,7 +9,7 @@
         <meta name="description" content="The Lily Programming Language, modules">
         <meta name="author" content="Jesse Ray Adkins">
 
-        <title>Lily Module Documentation</title>
+        <title>Lily Package Documentation</title>
 
         <!-- Bootstrap core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -60,55 +60,46 @@
             <div class="section">
 <h1>sys</h1>
 <p>The sys package provides access to the arguments given to Lily.</p>
-
-<span class="varname">argv</span>
-<span>:</span><span class="type">List[String]</span>
-<div class="explain">This contains arguments sent to the program through the command-line. If Lily
-was not invoked from the command-line (ex: mod_lily), then this is empty.</div>
+<h2>toplevel</h2>
+<h3>var argv: <code>List[String]</code></h3>
+<p>This contains arguments sent to the program through the command-line. If Lily
+was not invoked from the command-line (ex: mod_lily), then this is empty.</p>
+<h3>define getenv<code>(name: String): Option[String]</code></h3>
+<p>Search the environment for <code>name</code>, returning either a <code>Some</code> with the contents,
+or <code>None</code>. Internally, this is a wrapper over C's getenv.</p>
             </div>
             <div class="section">
 <h1>server</h1>
 <p>This package is registered when Lily is run by Apache through mod_lily. This
 package provides Lily with information inside of Apache (such as POST), as well
 as functions for sending data through the Apache server.</p>
-
-<span class="varname">env</span>
-<span>:</span><span class="type">Hash[String, Tainted[String]]</span>
-<div class="explain">This contains key+value pairs containing the current environment of the server.</div>
-
-<span class="varname">get</span>
-<span>:</span><span class="type">Hash[String, Tainted[String]]</span>
-<div class="explain">This contains key+value pairs that were sent to the server as GET variables.
-Any pair that has a key or a value that is not valid utf-8 will not be present.</div>
-
-<span class="varname">httpmethod</span>
-<span>:</span><span class="type">String</span>
-<div class="explain">This is the method that was used to make the request to the server.
-Common values are "GET", and "POST".</div>
-
-<span class="varname">post</span>
-<span>:</span><span class="type">Hash[String, Tainted[String]]</span>
-<div class="explain">This contains key+value pairs that were sent to the server as POST variables.
-Any pair that has a key or a value that is not valid utf-8 will not be present.</div>
-
-<span class="funcname">escape</span><span class><strong>(text: String): String</strong></span>
-<div class="explain">This checks self for having "&amp;", "&amp;lt;", or "&amp;gt;". If any are found, then a new
-String is created where those html entities are replaced (&amp; becomes &amp;amp;, &amp;lt;
-becomes &amp;lt;, &amp;gt; becomes &amp;gt;).</div>
-
-<span class="funcname">write</span><span class><strong>(text: String)</strong></span>
-<div class="explain">This escapes, then writes <span class="varname">text</span> to the server. It is equivalent to
-<span class="varname">server.write_raw(server.escape(text))</span>, except faster because it skips building
-an intermediate <span class="type">String</span> value.</div>
-
-<span class="funcname">write_literal</span><span class><strong>(text: String)</strong></span>
-<div class="explain">This writes <span class="varname">text</span> directly to the server. If <span class="varname">text</span> is not a <span class="type">String</span> literal,
-then <span class="type">ValueError</span> is raised. No escaping is performed.</div>
-
-<span class="funcname">write_raw</span><span class><strong>(text: String)</strong></span>
-<div class="explain">This writes <span class="varname">text</span> directly to the server without performing any HTML character
+<h2>toplevel</h2>
+<h3>var env: <code>Hash[String, Tainted[String]]</code></h3>
+<p>This contains key+value pairs containing the current environment of the server.</p>
+<h3>var get: <code>Hash[String, Tainted[String]]</code></h3>
+<p>This contains key+value pairs that were sent to the server as GET variables.
+Any pair that has a key or a value that is not valid utf-8 will not be present.</p>
+<h3>var httpmethod: <code>String</code></h3>
+<p>This is the method that was used to make the request to the server.
+Common values are "GET", and "POST".</p>
+<h3>var post: <code>Hash[String, Tainted[String]]</code></h3>
+<p>This contains key+value pairs that were sent to the server as POST variables.
+Any pair that has a key or a value that is not valid utf-8 will not be present.</p>
+<h3>define escape<code>(text: String): String</code></h3>
+<p>This checks self for having <code>"&amp;"</code>, <code>"&lt;"</code>, or <code>"&gt;"</code>. If any are found, then a new
+String is created where those html entities are replaced (<code>"&amp;"</code> becomes
+<code>"&amp;amp;"</code>, <code>"&lt;"</code> becomes <code>"&amp;lt;"</code>, <code>"&gt;"</code> becomes <code>"&amp;gt;"</code>).</p>
+<h3>define write<code>(text: String)</code></h3>
+<p>This escapes, then writes 'text' to the server. It is equivalent to
+<code>server.write_raw(server.escape(text))</code>, except faster because it skips building
+an intermediate <code>String</code> value.</p>
+<h3>define write_literal<code>(text: String)</code></h3>
+<p>This writes <code>text</code> directly to the server. If <code>text</code> is not a <code>String</code> literal,
+then <code>ValueError</code> is raised. No escaping is performed.</p>
+<h3>define write_raw<code>(text: String)</code></h3>
+<p>This writes <code>text</code> directly to the server without performing any HTML character
 escaping. Use this only if you are certain that there is no possibility of HTML
-injection.</div>
+injection.</p>
             </div>
         </div>
 
