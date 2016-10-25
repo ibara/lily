@@ -738,13 +738,14 @@ By doing this, Lily can know for sure that all of the members of a class are ini
                 </p>
                 <p>
 Within a class, properties are accessed through <span class="varname">@name</span>.
-Unfortunately, Lily doesn't support a shorthand constructor syntax.
-This is why the <span class="varname">@name = name</span> is currently necessary.
-In a future version of Lily, a shorthand syntax for constructors will be possible.
-                </p>
+In the above case, it may seem verbose to write out <span class="varname">x</span> and <span class="varname">y</span> twice.
+Fortunately, Lily provides a shorthand syntax for constructors.
+The initial part of the above class can be rewritten as:
+                <pre>
+class Point(var @x: Integer, var @y: Integer)</pre>
                 <p>
-There's also the <span class="varname">Point.move</span> method.
-Currently, all methods of a class implicitly receive <span class="varname">self</span> as their first argument.
+The class has a method named <span class="varname">Point.move</span>.
+In Lily, all class methods implicitly receive <span class="varname">self</span> as their first argument.
                 </p>
                 <p>
 Let's take the above class for a spin:
