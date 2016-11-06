@@ -92,6 +92,8 @@ The <code>ByteString</code> class currently does not support any primitive opera
 depends on the value of <code>encode</code>.</p>
 <p>If encode is <code>"error"</code>, then invalid utf-8 or embedded '\0' values within <code>self</code>
 will result in <code>None</code>.</p>
+<h3>method ByteString.size<code>(self: ByteString): Integer</code></h3>
+<p>Return the number of <code>Byte</code> values within <code>self</code>.</p>
 <h2>class DivisionByZeroError</h2>
 <pre><code>class DivisionByZeroError &lt; Exception {
 
@@ -480,6 +482,9 @@ space.</p>
 <p>This walks through self from right to left, and then from left to right. The
 result of this is a newly-made <code>String</code> without any elements within <code>to_strip</code>
 at either end.</p>
+<h3>method String.to_bytestring<code>(self: String): ByteString</code></h3>
+<p>Produce a copy of <code>self</code>, as a <code>ByteString</code>. This allows per-<code>Byte</code> operations
+to be performed.</p>
 <h3>method String.trim<code>(self: String): String</code></h3>
 <p>Checks if <code>self</code> starts or ends with any of <code>" \t\r\n"</code>. If it does, then a new
 <code>String</code> is made with spaces removed from both sides. If it does not, then this
