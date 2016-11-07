@@ -492,19 +492,6 @@ returns <code>self</code>.</p>
 <h3>method String.upper<code>(self: String):String</code></h3>
 <p>Checks if any characters within self are within [a-z]. If so, it creates a new
 <code>String</code> with [a-z] replaced by [A-Z]. Otherwise, <code>self</code> is returned.</p>
-<h2>class Tainted</h2>
-<pre><code>class Tainted[A] {
-    private var @value: A
-}
-</code></pre>
-
-<p>The <code>Tainted</code> type represents a wrapper over some data that is considered
-unsafe. Data, once inside a <code>Tainted</code> value can only be retrieved using the
-<code>Tainted.sanitize</code> function.</p>
-<h3>constructor Tainted<code>[A](self: A): Tainted[A]</code></h3>
-<h3>method Tainted.sanitize<code>[A, B](self: Tainted[A], fn: Function(A =&gt; B)): B</code></h3>
-<p>This calls <code>fn</code> with the value contained within <code>self</code>. <code>fn</code> is assumed to be a
-function that can sanitize the data within <code>self</code>.</p>
 <h2>class Tuple</h2>
 <p>The <code>Tuple</code> class provides a fixed-size container over a set of types. <code>Tuple</code>
 is ideal for situations where a variety of data is needed, but a class is too
