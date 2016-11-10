@@ -465,6 +465,8 @@ base-10 encoded value.</p>
 <p>If the value is a valid <code>Integer</code>, then a <code>Some</code> containing the value is
 returned.</p>
 <p>Otherwise, <code>None</code> is returned.</p>
+<h3>method String.replace<code>(self: String, needle: String, new: String): String</code></h3>
+<p>Create a new <code>String</code> consisting of every <code>needle</code> replaced with <code>new</code>.</p>
 <h3>method String.rstrip<code>(self: String, to_strip: String):String</code></h3>
 <p>This walks through <code>self</code> from right to left, stopping on the first utf-8 chunk
 that is not found within <code>to_strip</code>. The result is a newly-made copy of <code>self</code>
