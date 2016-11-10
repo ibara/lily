@@ -63,53 +63,10 @@
 <h2>toplevel</h2>
 <h3>var argv: <code>List[String]</code></h3>
 <p>This contains arguments sent to the program through the command-line. If Lily
-was not invoked from the command-line (ex: mod_lily), then this is empty.</p>
+was not invoked from the command-line, then this is empty.</p>
 <h3>define getenv<code>(name: String): Option[String]</code></h3>
 <p>Search the environment for <code>name</code>, returning either a <code>Some</code> with the contents,
 or <code>None</code>. Internally, this is a wrapper over C's getenv.</p>
-            </div>
-            <div class="section">
-<h1>server</h1>
-<p>This package is registered when Lily is run by Apache through mod_lily. This
-package provides Lily with information inside of Apache (such as POST), as well
-as functions for sending data through the Apache server.</p>
-<h2>toplevel</h2>
-<h3>var env: <code>Hash[String, Tainted[String]]</code></h3>
-<p>This contains key+value pairs containing the current environment of the server.</p>
-<h3>var get: <code>Hash[String, Tainted[String]]</code></h3>
-<p>This contains key+value pairs that were sent to the server as GET variables.</p>
-<h3>var httpmethod: <code>String</code></h3>
-<p>This is the method that was used to make the request to the server.</p>
-<h3>var post: <code>Hash[String, Tainted[String]]</code></h3>
-<p>This contains key+value pairs that were sent to the server as POST variables.</p>
-<h3>define escape<code>(text: String): String</code></h3>
-<p>This checks self for having <code>"&amp;"</code>, <code>"&lt;"</code>, or <code>"&gt;"</code>. If any are found, then a new
-String is created where those html entities are replaced (<code>"&amp;"</code> becomes
-<code>"&amp;amp;"</code>, <code>"&lt;"</code> becomes <code>"&amp;lt;"</code>, <code>"&gt;"</code> becomes <code>"&amp;gt;"</code>).</p>
-<h3>define write<code>(text: String)</code></h3>
-<p>This escapes, then writes 'text' to the server. It is equivalent to
-<code>server.write_raw(server.escape(text))</code>, except faster because it skips building
-an intermediate <code>String</code> value.</p>
-<h3>define write_literal<code>(text: String)</code></h3>
-<p>This writes <code>text</code> directly to the server. If <code>text</code> is not a <code>String</code> literal,
-then <code>ValueError</code> is raised. No escaping is performed.</p>
-<h3>define write_raw<code>(text: String)</code></h3>
-<p>This writes <code>text</code> directly to the server without performing any HTML character
-escaping. Use this only if you are certain that there is no possibility of HTML
-injection.</p>
-<h2>class Tainted</h2>
-<pre><code>class Tainted[A] {
-    private var @value: A
-}
-</code></pre>
-
-<p>The <code>Tainted</code> type represents a wrapper over some data that is considered
-unsafe. Data, once inside a <code>Tainted</code> value can only be retrieved using the
-<code>Tainted.sanitize</code> function.</p>
-<h3>constructor Tainted<code>[A](self: A): Tainted[A]</code></h3>
-<h3>method Tainted.sanitize<code>[A, B](self: Tainted[A], fn: Function(A =&gt; B)): B</code></h3>
-<p>This calls <code>fn</code> with the value contained within <code>self</code>. <code>fn</code> is assumed to be a
-function that can sanitize the data within <code>self</code>.</p>
             </div>
         </div>
 

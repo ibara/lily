@@ -64,11 +64,6 @@
                     </dt>
                     <dt>
                         <span>
-                            <a href="#_SettingUp">Setting up mod_lily</a>
-                        </span>
-                    </dt>
-                    <dt>
-                        <span>
                             <a href="#_StartingModes">Starting Modes</a>
                         </span>
                     </dt>
@@ -165,53 +160,7 @@ To do that, you'll need <strong>CMake</strong> and a modern C compiler that supp
                 <p>
 A basic compile is just <code>cmake . ; make ; make install</code>.
 This will install the executable for the language (<code>lily</code>).
-To install <code>mod_lily</code>, you'll need Apache headers.
-If you do, you can install <code>mod_lily</code> by adding <code>-DWITH_APACHE=on</code> to your <code>cmake</code> invocation.
                 </p>
-            </div>
-            <div class="section">
-                <h1 id="_SettingUp">
-                    Setting up mod_lily
-                </h1>
-                <p>
-This part is entirely optional. To begin with, you'll need Apache's development headers.
-To build <code>mod_lily</code>, add <code>-DWITH_APACHE=on</code> to your CMake invocation, then <code>cmake ; make ; make install</code>.
-This will build <code>mod_lily</code> and put it among Apache's library files.
-                </p>
-                <p>
-Now you'll need to locate Apache's configuration file so that you can alter it.
-Here's the additions that I made on my own server:
-                </p>
-                <pre>
-# Near the module section:
-LoadModule&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/usr/lib64/httpd/modules/mod_lily.so
-
-# After cgi-bin...
-&lt;Directory "/var/www/cgi-bin"&gt;
-    SetHandler lily
-&lt;/Directory&gt;</pre>
-                <p>
-Here's a script you can place into <code>/var/www/cgi-bin/</code> (or whatever directory you set aside) to make sure that the install is working.
-                </p>
-                <pre>
-&lt;?lily
-import server
-?&gt;
-&lt;html&gt;
-&lt;body&gt;
-&lt;?lily
-server.write("Hello from mod_lily!")
-?&gt;
-&lt;/body&gt;
-&lt;/html&gt;</pre>
-                <p>
-mod_lily supports the following options:
-                </p>
-                <ul>
-                    <li>
-<b>ShowTraceback</b>: If <b>On</b>, show exception traceback. For security, this defaults to <b>Off</b>.
-                    </li>
-                </ul>
             </div>
             <div class="section">
                 <h1 id="_StartingModes">
@@ -230,8 +179,7 @@ In <code>template</code> mode, the first file is scanned as text.
 Code is denoted through <code>&lt;?lily ... &gt;</code> tags.
 In addition, the file must start with a <code>&lt;?lily</code> tag (even if it's empty).
 Doing so lets Lily know that the file isn't just code.
-This is the default for the <code>mod_lily</code> executable.
-You can also explicitly specify this through <code>lily -t</code>.
+You can specify this through <code>lily -t</code>.
                </p>
                <p>
 It is assumed that the examples in this tutorial will be run through <code>standalone</code> mode.
