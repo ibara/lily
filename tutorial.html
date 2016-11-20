@@ -321,7 +321,28 @@ optarg() # 20
 var some_func = Integer.to_s
 </pre>
                 <p>
-Now that creating new <code>Function</code>s has been covered, here's how to call them.
+Similar to Python, you can attach a docstring to functions you define.
+The syntax for docstrings is a little different, however:
+                </p>
+<pre>
+### Parse a String as an Integer, or return a fallback.
+### to_parse: The String to process.
+### fallback: The value to use if not successful.
+define parse_i_or(to_parse: String, fallback: Integer) {
+    return to_parse.parse_i().unwrap_or(fallback)
+}
+
+# Use Function.doc to get the docstring.
+print(parse_i_or.doc())
+</pre>
+                <p>
+When creating docstrings, the indentation must match.
+You also need to have a definition follow the docstring.
+Later, you can access the docstring through the <code>Function.doc</code> method.
+This method is available to all <code>Function</code> values, regardless of their signature.
+                </p>
+                <p>
+Now that <code>Function</code>s has been covered, here's how to call them.
                 </p>
                 <pre>
 var some_int = String.parse_i("123")
@@ -752,6 +773,20 @@ In Lily, access to <span class="varname">private</span> properties and methods i
 Absent from Lily are getters and setters found in other object-oriented languages.
 This has a downside, in that it's currently not possible to have a <span class="varname">var</span> that has, say, a <span class="varname">protected</span> get but a <span class="varname">private</span> set.
                 </p>
+                <p>
+Similar to functions, you can also give classes a docstring:
+                </p>
+                <pre>
+### Represents a point in 2-dimensional space.
+### @x: The 'x' coordinate (left-right).
+### @y: The 'y' coordinate (up-down).
+class Point(var @x: Integer, var @y: Integer)
+{
+    ...
+}
+
+print(Function.doc(Point))
+                </pre>
                 <p>
 Moving on, Lily also supports inheritance:
                 </p>

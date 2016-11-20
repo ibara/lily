@@ -207,11 +207,15 @@ as arguments, placed into a <code>List</code>, and so on.</p>
 colon at the end to denote the value returned:</p>
 <p><code>Function(Integer): String</code> (return <code>String</code>).</p>
 <p><code>Function(String, String)</code> (no value returned).</p>
+<h3>method Function.doc<code>(self: Function(1)): String</code></h3>
+<p>If <code>self</code> has a docstring, then the docstring is returned. Otherwise, an empty
+<code>String</code> is returned instead.</p>
 <h2>class Hash</h2>
 <p>The <code>Hash</code> class provides a mapping between a key and a value. <code>Hash</code> values can
 be created through <code>[key1 =&gt; value1, key2 =&gt; value2, ...]</code>. When writing a
-<code>Hash</code>, the key is the first type, and the value is the second.</p>
-<p><code>[1 =&gt; "a", 2 =&gt; "b", 3 =&gt; "c"]</code> would therefore be written as
+<code>Hash</code>, the key is the first type, and the value is the second.
+/
+<code>[1 =&gt; "a", 2 =&gt; "b", 3 =&gt; "c"]</code> would therefore be written as
 <code>Hash[Integer, String]</code>.</p>
 <p>Currently, only <code>Integer</code> and <code>String</code> can be used as keys.</p>
 <h3>method Hash.clear<code>[A, B](self: Hash[A, B])</code></h3>
