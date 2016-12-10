@@ -71,6 +71,16 @@ foundation of Lily.</p>
 </ul>
 <h3>define calltrace<code>: List[String]</code></h3>
 <p>Returns a <code>List</code> with one <code>String</code> for each function that is currently entered.</p>
+<h3>define assert<code>(condition: Boolean, message: *String="")</code></h3>
+<p>If <code>condition</code> is <code>false</code>, raise <code>AssertionError</code> using <code>message</code>.</p>
+<h2>class AssertionError</h2>
+<pre><code>class AssertionError &lt; Exception {
+
+}
+</code></pre>
+
+<p>This is a subclass of <code>Exception</code> that is raised when an <code>assert</code> is passed
+<code>false</code> as the first argument.</p>
 <h2>class Boolean</h2>
 <p>The <code>Boolean</code> class represents a value that is either <code>true</code> or <code>false</code>.</p>
 <h3>method Boolean.to_i<code>(self: Boolean): Integer</code></h3>
@@ -87,6 +97,8 @@ using 't' as the suffix on an <code>Integer</code> value.</p>
 <p>The <code>ByteString</code> class represents a bag of bytes. A <code>ByteString</code> may have '\0'
 values embedded within it. It may also have data that is not valid as utf-8.
 The <code>ByteString</code> class currently does not support any primitive operations.</p>
+<h3>method ByteString.each_byte<code>(self: ByteString, fn: Function(Byte))</code></h3>
+<p>Call <code>fn</code> for each <code>Byte</code> within the given <code>ByteString</code>.</p>
 <h3>method ByteString.encode<code>(self: ByteString, encode: *String="error"): Option[String]</code></h3>
 <p>Attempt to transform the given <code>ByteString</code> into a <code>String</code>. The action taken
 depends on the value of <code>encode</code>.</p>
