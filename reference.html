@@ -446,6 +446,23 @@ guaranteed to always be valid utf-8.</p>
 <p>The methods on the <code>String</code> class treat the underlying <code>String</code> as being
 immutable, and thus always create a new <code>String</code> instead of modifying the
 existing one.</p>
+<h3>method String.format<code>(self: String, args: 1...): String</code></h3>
+<p>This creates a new <code>String</code> by processing <code>self</code> as a format. Format specifiers
+must be between braces (<code>{}</code>), and must be between <code>0</code> and <code>99</code>. Each format
+specifier is replaced with the according argument, with the first argument being
+at 0, the second at 1, and so on.</p>
+<p>This function is a useful alternative to interpolation for situations where the
+value is a long expression, or where a single value is to be repeated several
+times.</p>
+<h4>Errors</h4>
+<ul>
+<li>
+<p><code>ValueError</code> if a format specifier is malformed or has too many digits.</p>
+</li>
+<li>
+<p><code>IndexError</code> if the format specifier specifies an out-of-range argument.</p>
+</li>
+</ul>
 <h3>method String.ends_with<code>(self: String, end: String): Boolean</code></h3>
 <p>Checks if <code>self</code> ends with <code>end</code>.</p>
 <h3>method String.find<code>(self: String, needle: String): Option[Integer]</code></h3>
