@@ -67,6 +67,21 @@ was not invoked from the command-line, then this is empty.</p>
 <h3>define getenv<code>(name: String): Option[String]</code></h3>
 <p>Search the environment for <code>name</code>, returning either a <code>Some</code> with the contents,
 or <code>None</code>. Internally, this is a wrapper over C's getenv.</p>
+<h1>random</h1>
+<p>The random package provides access to a Mersenne Twister for pseudo-random
+number generation.</p>
+<h2>class Random</h2>
+<p>The <code>Random</code> class provides access to the random number generator. Each
+instance is completely separate from all others.</p>
+<p>The constructor for this class takes a seed. If the seed provided is 0 or less,
+then the current time (<code>time(NULL)</code> in C) is used instead.</p>
+<h3>constructor Random<code>(seed: *Integer=0): Random</code></h3>
+<h3>method Random.between<code>(self: Random, lower: Integer, upper: Integer): Integer</code></h3>
+<p>Generate a random <code>Integer</code> value between <code>lower</code> and <code>upper</code>.</p>
+<h4>Errors</h4>
+<ul>
+<li><code>ValueError</code> is raised if the range is empty, or reversed.</li>
+</ul>
             </div>
         </div>
 
