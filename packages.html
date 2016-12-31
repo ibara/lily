@@ -82,6 +82,21 @@ then the current time (<code>time(NULL)</code> in C) is used instead.</p>
 <ul>
 <li><code>ValueError</code> is raised if the range is empty, or reversed.</li>
 </ul>
+<h1>time</h1>
+<p>The time package provides access to basic time information on the system.</p>
+<h2>class Time</h2>
+<p>Instances of this class represent a single point in time. This class also
+includes static methods to provide a few extra features.</p>
+<h3>method Time.clock<code>: Double</code></h3>
+<p>Returns the number of seconds of CPU time the interpreter has used.</p>
+<h3>method Time.now<code>: Time</code></h3>
+<p>Returns a <code>Time</code> instance representing the current system time.</p>
+<h3>method Time.to_s<code>(self: Time): String</code></h3>
+<p>Return a <code>String</code> representation of a <code>Time</code> instance.</p>
+<p>Internally, this calls strftime with <code>"%Y-%m-%d %H:%M:%S %z"</code>.</p>
+<p>Example output: <code>"2016-7-10 16:30:00 -0800"</code>.</p>
+<h3>method Time.since_epoch<code>(self: Time): Integer</code></h3>
+<p>Returns the value of <code>self</code> as a number of seconds since the epoch.</p>
             </div>
         </div>
 
