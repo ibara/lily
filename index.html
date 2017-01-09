@@ -60,9 +60,9 @@
                         <code style="padding: 0px 0px; background-color:inherit; color: white">
                         <span>use sys</span><br />
                         <span>sys.argv.map(String.parse_i)</span><br />
-                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        .reject{|r| r.is_none() }</span></br />
-                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        .map{|m| m.unwrap() }</span><br />
-                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        .fold(0, {|a, b| a + b})</span><br />
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        .reject(|r| r.is_none() )</span></br />
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        .map(|m| m.unwrap() )</span><br />
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        .fold(0, (|a, b| a + b))</span><br />
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        |> print</span>
                         </code>
                     </div>

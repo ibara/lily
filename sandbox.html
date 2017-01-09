@@ -68,10 +68,10 @@ for i in 0...99:
 # The type must be specified since the List starts off empty.
 var open_doors: List[Integer] = []
 
-doors.each_index{|i|
+doors.each_index(|i|
     if doors[i]:
         open_doors.push(i + 1)
-}
+)
 
 print($"Open doors: ^(open_doors).")
 </div>
@@ -107,10 +107,10 @@ stdout.write("Created three Points: ")
 coordinates.map(Point.to_s) |&gt; print
 
 stdout.write("How many coordinates have an x &lt; y? : ")
-coordinates.count{|c| c.x &lt; c.y } |&gt; print
+coordinates.count(|c| c.x &lt; c.y ) |&gt; print
 
 stdout.write("Using Point.moveBy to move each X down by half...\n")
-coordinates.each{|e| e.move2D(-e.x / 2, 0) }
+coordinates.each(|e| e.move2D(-e.x / 2, 0) )
 
 stdout.write("Points are now: ")
 coordinates.map(Point.to_s) |&gt; print
@@ -159,10 +159,10 @@ print(
     )
 </div>
 <div class="example" id="RPN calculator">
-var math_ops = ["+" =&gt; {|a: Integer, b: Integer| a + b},
-                "-" =&gt; {|a, b| a - b},
-                "*" =&gt; {|a, b| a * b},
-                "/" =&gt; {|a, b| a / b}]
+var math_ops = ["+" =&gt; (|a: Integer, b: Integer| a + b),
+                "-" =&gt; (|a, b| a - b),
+                "*" =&gt; (|a, b| a * b),
+                "/" =&gt; (|a, b| a / b)]
 
 #[
     This implements a reverse polish notation calculator.
@@ -213,7 +213,7 @@ var lines = [
     "1 2 ?"
     ]
 
-lines.each{|l| print($"\"^(l)\": ^(rpn(l))") }
+lines.each(|l| print($"\"^(l)\": ^(rpn(l))") )
 </div>
 
         </div>

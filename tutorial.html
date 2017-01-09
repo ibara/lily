@@ -301,7 +301,7 @@ return_no_op()()
 define sum(numbers: Integer...): Integer
 {
     var total = 0
-    numbers.each{|e| total += e }
+    numbers.each(|e| total += e )
     return total
 }
 
@@ -928,14 +928,14 @@ define inplace_sort(input: List[Integer], cmp: Function(Integer, Integer =&gt; B
     return input
 }
 
-inplace_sort([1, 3, 5, 2, 4], {|a, b| a &gt; b}) # [1, 2, 3, 4, 5]
-inplace_sort([1, 3, 2],       {|a, b| a &lt; b}) # [3, 2, 1]</pre>
+inplace_sort([1, 3, 5, 2, 4], (|a, b| a &gt; b)) # [1, 2, 3, 4, 5]
+inplace_sort([1, 3, 2],       (|a, b| a &lt; b)) # [3, 2, 1]</pre>
                 <p>
 Most of this shouldn't be surprising by now.
 <span class="varname">inplace_sort</span> takes in a <code>List</code> and mutates the elements so that they are sorted.
 The sorting order depends on the comparison function, <span class="varname">cmp</span>.
 <span class="varname">inplace_sort</span> with a starting <code>List</code>, and the lambda.
-The first lambda is: <span class="varname">{|a, b| a &gt; b }</span>.
+The first lambda is: <span class="varname">(|a, b| a &gt; b )</span>.
                 </p>
                 <p>
 Lambdas work off of inference.
@@ -948,23 +948,23 @@ Occasionally, there's a method that you'd like to call with a lambda, and that l
 Here's one example:
                 </p>
                 <pre>
-[1, 2, 3].each({|e| print(e) })</pre>
+[1, 2, 3].each((|e| print(e) ))</pre>
                 <p>
 In this kind of situation, the parentheses don't serve any real value.
 If you have a value of some kind, and write a lambda, then Lily will assume that the lambda applies to the value.
 Doing so allows the elimination of those parentheses that don't do anything:
                 </p>
                 <pre>
-[1, 2, 3].each{|e| print(e) }</pre>
+[1, 2, 3].each(|e| print(e) )</pre>
                 <p>
 Occasionally, it's useful to specify the type of a lambda's argument:
                 </p>
                 <pre>
 var math_ops = [
-    "+" =&gt; {|a: Integer, b: Integer| a + b },
-    "-" =&gt; {|a, b| a - b},
-    "*" =&gt; {|a, b| a * b},
-    "/" =&gt; {|a, b| a / b}]
+    "+" =&gt; (|a: Integer, b: Integer| a + b ),
+    "-" =&gt; (|a, b| a - b),
+    "*" =&gt; (|a, b| a * b),
+    "/" =&gt; (|a, b| a / b)]
 
     math_ops["+"](10, 20) |&gt; print</pre>
                 <p>
@@ -991,12 +991,12 @@ Here's what it looks like, in practice.
 define fold[A](input: List[A], start: A, combine: Function(A, A =&gt; A)): A
 {
     var total = start
-    input.each{|e| total = combine(total, e) }
+    input.each(|e| total = combine(total, e) )
     return total
 }
 
-fold([1, 2, 3], 0, {|a, b| a + b }) |&gt; print              # 6
-fold(["1", "2", "3"], "", {|a, b| $"^(a)^(b)" }) |&gt; print # "123"</pre>
+fold([1, 2, 3], 0, (|a, b| a + b )) |&gt; print              # 6
+fold(["1", "2", "3"], "", (|a, b| $"^(a)^(b)" )) |&gt; print # "123"</pre>
                 <p>
 <span class="varname">fold</span> accumulates elements of a <code>List</code> together using <span class="varname">combine</span> as an accumulator.
 Lily's generics work by associating types.
@@ -1037,7 +1037,7 @@ var maybe_int = Tainted("123").sanitize(String.parse_i)
 maybe_int.unwrap() |&gt; print # 123
 
 # A <!-- cat --> lambda is fine too:
-var ok_string = Tainted(1e1).sanitize{|a| a.to_s() }
+var ok_string = Tainted(1e1).sanitize(|a| a.to_s() )
 print(ok_string) # 100</pre>
                 <p>
 The last example shows off Lily's inference capabilities.
@@ -1347,7 +1347,7 @@ import utils
 
 define and_then[A, B, C](f: Function(A => B), g: Function(B => C)): Function(A => C)
 {
-    return {|x| f(g(x)) }
+    return (|x| f(g(x)) )
 }
 
 # (from another file...)
