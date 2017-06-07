@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>core.builtin.List : Lily</title>
+        <link href="../../docstyle.css" rel="stylesheet">
+    </head>
+
+    <body role="document">
+        <section id='main'>
+<h1>Class List</h1>
+<pre>(builtin) class List[A] {  }</pre>
+<div class='doc'><p>
+The <code>List</code> class represents a container of a given type, written as
+<code>List[&lt;inner type&gt;]</code>. A <code>List</code> value can be accessed through a positive index or
+a negative one (with negative indexes being an offset from the end). Attempting
+to access an invalid index will produce <code>IndexError</code>.</p></div>
+<h2>Methods</h2>
+<h3 id='method.clear'><code>define <a href='#method.clear'>clear</a></code></h3>
+<div class='doc'><p>
+Removes all elements present within <code>self</code>. No error is raised if <code>self</code> is
+being iterated over.</p></div>
+<h3 id='method.count'><code>define <a href='#method.count'>count</a>(fn: Function(A => Boolean)): Integer</code></h3>
+<div class='doc'><p>
+This calls <code>fn</code> for each element within <code>self</code>. The result of this function is
+the number of times that <code>fn</code> returns <code>true</code>.</p></div>
+<h3 id='method.delete_at'><code>define <a href='#method.delete_at'>delete_at</a>(index: Integer)</code></h3>
+<div class='doc'><p>
+Attempts to remove index from the List. If index is negative, then it is
+considered an offset from the end of the List.</p>
+<div class='linkblock' id='errors.method.delete_at'><a href='#errors.method.delete_at'>Errors</a></div>
+<ul>
+<li><code>IndexError</code> if <code>index</code> is out of range.</li>
+</ul></div>
+<h3 id='method.each'><code>define <a href='#method.each'>each</a>(fn: Function(A)): List[A]</code></h3>
+<div class='doc'><p>
+Calls <code>fn</code> for each element within <code>self</code>. The result of this function is
+<code>self</code>, so that this method can be chained with others.</p></div>
+<h3 id='method.each_index'><code>define <a href='#method.each_index'>each_index</a>(fn: Function(Integer)): List[A]</code></h3>
+<div class='doc'><p>
+Calls <code>fn</code> for each element within <code>self</code>. Rather than receive the elements of
+<code>self</code>, <code>fn</code> instead receives the index of each element.</p></div>
+<h3 id='method.fold'><code>define <a href='#method.fold'>fold</a>(start: A, fn: Function(A, A => A)): A</code></h3>
+<div class='doc'><p>
+This calls <code>fn</code> for each element present within <code>self</code>. The first value sent to
+<code>fn</code> is initially <code>start</code>, but will later be the result of <code>fn</code>. Therefore, the
+value as it accumulates can be found in the first value sent to <code>fn</code>.</p>
+<p>The result of this function is the result of doing an accumulation on each
+element within <code>self</code>.</p></div>
+<h3 id='method.insert'><code>define <a href='#method.insert'>insert</a>(index: Integer, value: A)</code></h3>
+<div class='doc'><p>
+Attempt to insert <code>value</code> at <code>index</code> within <code>self</code>. If index is negative, then
+it is treated as an offset from the end of <code>self</code>.</p>
+<div class='linkblock' id='errors.method.insert'><a href='#errors.method.insert'>Errors</a></div>
+<ul>
+<li><code>IndexError</code> if <code>index</code> is not within <code>self</code>.</li>
+</ul></div>
+<h3 id='method.join'><code>define <a href='#method.join'>join</a>(separator: *String = ""): String</code></h3>
+<div class='doc'><p>
+Create a <code>String</code> consisting of the elements of <code>self</code> interleaved with
+<code>separator</code>. The elements of self are converted to a <code>String</code> as if they were
+interpolated. If <code>self</code> is empty, then the result is an empty <code>String</code>.</p></div>
+<h3 id='method.map'><code>define <a href='#method.map'>map</a>(fn: Function(A => B)): List[B]</code></h3>
+<div class='doc'><p>
+This calls <code>fn</code> on each element within <code>self</code>. The result of this function is a
+newly-made <code>List</code> containing the results of <code>fn</code>.</p></div>
+<h3 id='method.pop'><code>define <a href='#method.pop'>pop</a>: A</code></h3>
+<div class='doc'><p>
+Attempt to remove and return the last element within <code>self</code>.</p>
+<div class='linkblock' id='errors.method.pop'><a href='#errors.method.pop'>Errors</a></div>
+<ul>
+<li><code>IndexError</code> if <code>self</code> is empty.</li>
+</ul></div>
+<h3 id='method.push'><code>define <a href='#method.push'>push</a>(value: A)</code></h3>
+<div class='doc'><p>
+Add <code>value</code> to the end of <code>self</code>.</p></div>
+<h3 id='method.reject'><code>define <a href='#method.reject'>reject</a>(fn: Function(A => Boolean)): List[A]</code></h3>
+<div class='doc'><p>
+This calls <code>fn</code> for each element within <code>self</code>. The result is a newly-made
+<code>List</code> holding each element where <code>fn</code> returns <code>false</code>.</p></div>
+<h3 id='function.repeat'><code>define <a href='#function.repeat'>repeat</a>(count: Integer, value: A): List[A] <i>static</i></code></h3>
+<div class='doc'><p>
+This creates a new <code>List</code> that contains <code>value</code> repeated <code>count</code> times.</p>
+<div class='linkblock' id='errors.function.repeat'><a href='#errors.function.repeat'>Errors</a></div>
+<ul>
+<li><code>ValueError</code> if <code>count</code> is less than 1.</li>
+</ul></div>
+<h3 id='method.select'><code>define <a href='#method.select'>select</a>(fn: Function(A => Boolean)): List[A]</code></h3>
+<div class='doc'><p>
+This calls <code>fn</code> for each element within <code>self</code>. The result is a newly-made
+<code>List</code> holding each element where <code>fn</code> returns <code>true</code>.</p></div>
+<h3 id='method.size'><code>define <a href='#method.size'>size</a>: Integer</code></h3>
+<div class='doc'><p>
+Returns the number of elements that are within <code>self</code>.</p></div>
+<h3 id='method.shift'><code>define <a href='#method.shift'>shift</a>: A</code></h3>
+<div class='doc'><p>
+This attempts to remove the last element from <code>self</code> and return it.</p>
+<div class='linkblock' id='errors.method.shift'><a href='#errors.method.shift'>Errors</a></div>
+<ul>
+<li><code>ValueError</code> if <code>self</code> is empty.</li>
+</ul></div>
+<h3 id='method.slice'><code>define <a href='#method.slice'>slice</a>(start: *Integer = 0, stop: *Integer = -1): List[A]</code></h3>
+<div class='doc'><p>
+Create a new <code>List</code> copying a section of <code>self</code> from <code>start</code> to <code>stop</code>.</p>
+<p>If a negative index is given, it is treated as an offset from the end of <code>self</code>,
+with <code>-1</code> being considered the last element.</p>
+<p>On error, this generates an empty <code>List</code>. Error conditions are:</p>
+<ul>
+<li>Either <code>start</code> or <code>stop</code> is out of range.</li>
+<li>The <code>start</code> is larger than the <code>stop</code> (reversed).</li>
+</ul></div>
+<h3 id='method.unshift'><code>define <a href='#method.unshift'>unshift</a>(value: A)</code></h3>
+<div class='doc'><p>
+Inserts value at the front of self, moving all other elements to the right.</p></div>
+        </section>
+    </body>
+</html>

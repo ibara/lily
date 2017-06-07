@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>core.builtin.File : Lily</title>
+        <link href="../../docstyle.css" rel="stylesheet">
+    </head>
+
+    <body role="document">
+        <section id='main'>
+<h1>Class File</h1>
+<pre>(builtin) class File {  }</pre>
+<div class='doc'><p>
+The <code>File</code> class provides a wrapper over a C FILE * struct. A <code>File</code> is closed
+automatically when a scope exits (though not immediately). However, it is also
+possible to manually close a <code>File</code>.</p></div>
+<h2>Methods</h2>
+<h3 id='method.close'><code>define <a href='#method.close'>close</a></code></h3>
+<div class='doc'><p>
+Close <code>self</code> if it is open, or do nothing if already closed.</p>
+<p>For standard streams, this marks the <code>File</code> as closed, but does not actually
+close the stream. Embedders, therefore, do not need to worry about standard
+streams being altered or closed by Lily.</p></div>
+<h3 id='method.each_line'><code>define <a href='#method.each_line'>each_line</a>(fn: Function(ByteString))</code></h3>
+<div class='doc'><p>
+Read each line of text from <code>self</code>, passing it down to <code>fn</code> for processing.</p>
+<div class='linkblock' id='errors.method.each_line'><a href='#errors.method.each_line'>Errors</a></div>
+<ul>
+<li><code>IOError</code> if <code>self</code> is not open for reading, or is closed.</li>
+</ul></div>
+<h3 id='function.open'><code>define <a href='#function.open'>open</a>(path: String, mode: String): File <i>static</i></code></h3>
+<div class='doc'><p>
+Attempt to open <code>path</code> using the <code>mode</code> given. <code>mode</code> may be one of the
+following:</p>
+<ul>
+<li><code>&quot;r&quot;</code> (read only, must exist)</li>
+<li><code>&quot;w&quot;</code> (write only)</li>
+<li><code>&quot;a&quot;</code> (append, create if not exist)</li>
+<li><code>&quot;r+&quot;</code> (read+write, must exist)</li>
+<li><code>&quot;w+&quot;</code> (read+write, creates an empty file if needed)</li>
+<li><code>&quot;a+&quot;</code> (read+append)</li>
+</ul>
+<div class='linkblock' id='errors.function.open'><a href='#errors.function.open'>Errors</a></div>
+<ul>
+<li><code>IOError</code> if unable to open <code>path</code>, or an invalid <code>mode</code> is provided.</li>
+</ul></div>
+<h3 id='method.print'><code>define <a href='#method.print'>print</a>(data: A)</code></h3>
+<div class='doc'><p>
+Attempt to write the contents of <code>data</code> to the file provided. <code>data</code> is written
+with a newline at the end.</p>
+<div class='linkblock' id='errors.method.print'><a href='#errors.method.print'>Errors</a></div>
+<ul>
+<li><code>IOError</code> if <code>self</code> is closed or is not open for writing.</li>
+</ul></div>
+<h3 id='method.read'><code>define <a href='#method.read'>read</a>(size: *Integer = -1): ByteString</code></h3>
+<div class='doc'><p>
+Read <code>size</code> bytes from <code>self</code>. If <code>size</code> is negative, then the full contents of
+<code>self</code> are read. This stops if either <code>size</code> bytes are read, or the end of
+<code>self</code> is reached.</p>
+<p># Errors:</p>
+<ul>
+<li><code>IOError</code> if <code>self</code> is not open for reading, or is closed.</li>
+</ul></div>
+<h3 id='method.read_line'><code>define <a href='#method.read_line'>read_line</a>: ByteString</code></h3>
+<div class='doc'><p>
+Attempt to read a line of text from <code>self</code>. Currently, this function does not
+have a way to signal that the end of the file has been reached. For now, callers
+should check the result against <code>B&quot;&quot;</code>. This will be fixed in a future release.</p>
+<div class='linkblock' id='errors.method.read_line'><a href='#errors.method.read_line'>Errors</a></div>
+<ul>
+<li><code>IOError</code> if <code>self</code> is not open for reading, or is closed.</li>
+</ul></div>
+<h3 id='method.write'><code>define <a href='#method.write'>write</a>(data: A)</code></h3>
+<div class='doc'><p>
+Attempt to write the contents of <code>data</code> to the file provided.</p>
+<div class='linkblock' id='errors.method.write'><a href='#errors.method.write'>Errors</a></div>
+<ul>
+<li>If <code>self</code> is closed or is not open for writing, <code>IOError</code> is raised.</li>
+</ul></div>
+        </section>
+    </body>
+</html>

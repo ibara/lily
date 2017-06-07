@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>core.builtin.String : Lily</title>
+        <link href="../../docstyle.css" rel="stylesheet">
+    </head>
+
+    <body role="document">
+        <section id='main'>
+<h1>Class String</h1>
+<pre>(builtin) class String {  }</pre>
+<div class='doc'><p>
+The <code>String</code> class provides a wrapper over a C char *. The <code>String</code> class is
+guaranteed to have a single &#39;\0&#39; terminator. Additionally, a <code>String</code> is
+guaranteed to always be valid utf-8.</p>
+<p>The methods on the <code>String</code> class treat the underlying <code>String</code> as being
+immutable, and thus always create a new <code>String</code> instead of modifying the
+existing one.</p></div>
+<h2>Methods</h2>
+<h3 id='method.format'><code>define <a href='#method.format'>format</a>(args: 1...): String</code></h3>
+<div class='doc'><p>
+This creates a new <code>String</code> by processing <code>self</code> as a format. Format specifiers
+must be between braces (<code>{}</code>), and must be between <code>0</code> and <code>99</code>. Each format
+specifier is replaced with the according argument, with the first argument being
+at 0, the second at 1, and so on.</p>
+<p>This function is a useful alternative to interpolation for situations where the
+value is a long expression, or where a single value is to be repeated several
+times.</p>
+<div class='linkblock' id='errors.method.format'><a href='#errors.method.format'>Errors</a></div>
+<ul>
+<li><code>ValueError</code> if a format specifier is malformed or has too many digits.</li>
+</ul>
+<ul>
+<li><code>IndexError</code> if the format specifier specifies an out-of-range argument.</li>
+</ul></div>
+<h3 id='method.ends_with'><code>define <a href='#method.ends_with'>ends_with</a>(end: String): Boolean</code></h3>
+<div class='doc'><p>
+Checks if <code>self</code> ends with <code>end</code>.</p></div>
+<h3 id='method.find'><code>define <a href='#method.find'>find</a>(needle: String, start: *Integer = 0): Option[Integer]</code></h3>
+<div class='doc'><p>
+Check for <code>needle</code> being within <code>self</code>. By default, this begins at the start of
+<code>self</code>. If <code>start</code> is non-zero, then the search begins <code>start</code> bytes away from
+the beginning of <code>self</code>. If <code>start</code> lies within the middle of a utf-8 codepoint,
+then <code>None</code> is automatically returned.</p>
+<p>If <code>needle</code> is found, the result is a <code>Some</code> holding the index.</p>
+<p>Otherwise, this returns <code>None</code>.</p></div>
+<h3 id='method.html_encode'><code>define <a href='#method.html_encode'>html_encode</a>: String</code></h3>
+<div class='doc'><p>
+Check for one of <code>&quot;&amp;&quot;</code>, <code>&quot;&lt;&quot;</code>, or <code>&quot;&gt;&quot;</code> being within <code>self</code>.</p>
+<p>If found, a new <code>String</code> is contained with any instance of the above being
+replaced by an html-safe value.</p>
+<p>If not found, <code>self</code> is returned.</p></div>
+<h3 id='method.is_alnum'><code>define <a href='#method.is_alnum'>is_alnum</a>: Boolean</code></h3>
+<div class='doc'><p>
+Return <code>true</code> if <code>self</code> has only alphanumeric([a-zA-Z0-9]+) characters, <code>false</code>
+otherwise.</p></div>
+<h3 id='method.is_alpha'><code>define <a href='#method.is_alpha'>is_alpha</a>: Boolean</code></h3>
+<div class='doc'><p>
+Return <code>true</code> if <code>self</code> has only alphabetical([a-zA-Z]+) characters, <code>false</code>
+otherwise.</p></div>
+<h3 id='method.is_digit'><code>define <a href='#method.is_digit'>is_digit</a>: Boolean</code></h3>
+<div class='doc'><p>
+Return <code>true</code> if <code>self</code> has only digit([0-9]+) characters, <code>false</code> otherwise.</p></div>
+<h3 id='method.is_space'><code>define <a href='#method.is_space'>is_space</a>: Boolean</code></h3>
+<div class='doc'><p>
+Returns <code>true</code> if <code>self</code> has only space(&quot; \t\r\n&quot;) characters, <code>false</code>
+otherwise.</p></div>
+<h3 id='method.lower'><code>define <a href='#method.lower'>lower</a>: String</code></h3>
+<div class='doc'><p>
+Checks if any characters within <code>self</code> are within [A-Z]. If so, it creates a new
+<code>String</code> with [A-Z] replaced by [a-z]. Otherwise, <code>self</code> is returned.</p></div>
+<h3 id='method.lstrip'><code>define <a href='#method.lstrip'>lstrip</a>(to_strip: String): String</code></h3>
+<div class='doc'><p>
+This walks through <code>self</code> from left to right, stopping on the first utf-8 chunk
+that is not found within <code>to_strip</code>. The result is a newly-made copy of self
+without the elements within <code>to_strip</code> at the front.</p></div>
+<h3 id='method.parse_i'><code>define <a href='#method.parse_i'>parse_i</a>: Option[Integer]</code></h3>
+<div class='doc'><p>
+Attempts to convert <code>self</code> into an <code>Integer</code>. Currently, <code>self</code> is parsed as a
+base-10 encoded value.</p>
+<p>If the value is a valid <code>Integer</code>, then a <code>Some</code> containing the value is
+returned.</p>
+<p>Otherwise, <code>None</code> is returned.</p></div>
+<h3 id='method.replace'><code>define <a href='#method.replace'>replace</a>(needle: String, new: String): String</code></h3>
+<div class='doc'><p>
+Create a new <code>String</code> consisting of every <code>needle</code> replaced with <code>new</code>.</p></div>
+<h3 id='method.rstrip'><code>define <a href='#method.rstrip'>rstrip</a>(to_strip: String): String</code></h3>
+<div class='doc'><p>
+This walks through <code>self</code> from right to left, stopping on the first utf-8 chunk
+that is not found within <code>to_strip</code>. The result is a newly-made copy of <code>self</code>
+without the elements of <code>to_strip</code> at the end.</p></div>
+<h3 id='method.slice'><code>define <a href='#method.slice'>slice</a>(start: *Integer = 0, stop: *Integer = -1): String</code></h3>
+<div class='doc'><p>
+Create a new <code>String</code> copying a section of <code>self</code> from <code>start</code> to <code>stop</code>. This
+function works using byte indexes into the <code>String</code> value.</p>
+<p>If a negative index is given, it is treated as an offset from the end of <code>self</code>,
+with <code>-1</code> being considered the last element.</p>
+<p>On error, this generates an empty <code>String</code>. Error conditions are:</p>
+<ul>
+<li>Either <code>start</code> or <code>stop</code> is out of range.</li>
+<li>The resulting slice would not be valid utf-8.</li>
+<li>The <code>start</code> is larger than the <code>stop</code> (reversed).</li>
+</ul></div>
+<h3 id='method.split'><code>define <a href='#method.split'>split</a>(split_by: *String = " "): List[String]</code></h3>
+<div class='doc'><p>
+This attempts to split <code>self</code> using <code>split_by</code>, with a default value of a single
+space.</p>
+<div class='linkblock' id='errors.method.split'><a href='#errors.method.split'>Errors</a></div>
+<ul>
+<li><code>ValueError</code> if <code>split_by</code> is empty.</li>
+</ul></div>
+<h3 id='method.starts_with'><code>define <a href='#method.starts_with'>starts_with</a>(with: String): Boolean</code></h3>
+<div class='doc'><p>
+Checks if <code>self</code> starts with <code>with</code>.</p></div>
+<h3 id='method.strip'><code>define <a href='#method.strip'>strip</a>(to_strip: String): String</code></h3>
+<div class='doc'><p>
+This walks through self from right to left, and then from left to right. The
+result of this is a newly-made <code>String</code> without any elements within <code>to_strip</code>
+at either end.</p></div>
+<h3 id='method.to_bytestring'><code>define <a href='#method.to_bytestring'>to_bytestring</a>: ByteString</code></h3>
+<div class='doc'><p>
+Produce a copy of <code>self</code>, as a <code>ByteString</code>. This allows per-<code>Byte</code> operations
+to be performed.</p></div>
+<h3 id='method.trim'><code>define <a href='#method.trim'>trim</a>: String</code></h3>
+<div class='doc'><p>
+Checks if <code>self</code> starts or ends with any of <code>&quot; \t\r\n&quot;</code>. If it does, then a new
+<code>String</code> is made with spaces removed from both sides. If it does not, then this
+returns <code>self</code>.</p></div>
+<h3 id='method.upper'><code>define <a href='#method.upper'>upper</a>: String</code></h3>
+<div class='doc'><p>
+Checks if any characters within self are within [a-z]. If so, it creates a new
+<code>String</code> with [a-z] replaced by [A-Z]. Otherwise, <code>self</code> is returned.</p></div>
+        </section>
+    </body>
+</html>

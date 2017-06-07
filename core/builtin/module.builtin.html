@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>core.builtin : Lily</title>
+        <link href="../../docstyle.css" rel="stylesheet">
+    </head>
+
+    <body role="document">
+        <section id='main'>
+<h1>Module builtin</h1>
+<div class='doc'><p>
+The builtin package provides the classes, vars, and functions that form the
+foundation of Lily.</p></div>
+<h2>Classes</h2>
+<table><tbody>
+<tr>
+<td><a class='reflink' href='builtin.Boolean.html'>Boolean</a></td>
+<td>
+The <code>Boolean</code> class represents a value that is either <code>true</code> or <code>false</code>.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='builtin.Byte.html'>Byte</a></td>
+<td>
+The <code>Byte</code> class represents a wrapper over a single <code>Byte</code> value. A <code>Byte</code> value
+is always unsigned, giving it a range from 0 to 255. <code>Byte</code> literals are written
+using &#39;t&#39; as the suffix on an <code>Integer</code> value.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='builtin.ByteString.html'>ByteString</a></td>
+<td>
+The <code>ByteString</code> class represents a bag of bytes. A <code>ByteString</code> may have &#39;\0&#39;
+values embedded within it. It may also have data that is not valid as utf-8.
+The <code>ByteString</code> class currently does not support any primitive operations.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='builtin.Double.html'>Double</a></td>
+<td>
+The <code>Double</code> class exists as a wrapper over a C double.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='builtin.Dynamic.html'>Dynamic</a></td>
+<td>
+The <code>Dynamic</code> class allows defering type checking until runtime. Creation of
+<code>Dynamic</code> is done through <code>Dynamic(&lt;value&gt;)</code>. Extraction of values is done
+through a cast: <code>.@(type)</code>. The result of a cast is <code>Option[&lt;type&gt;]</code>, with
+<code>Some</code> on success and <code>None</code> on failure. Finally, casts are not allowed to hold
+polymorphic types, such as <code>List</code> or <code>Hash</code> or <code>Function</code>, because Lily&#39;s vm
+only holds class information at runtime.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='builtin.File.html'>File</a></td>
+<td>
+The <code>File</code> class provides a wrapper over a C FILE * struct. A <code>File</code> is closed
+automatically when a scope exits (though not immediately). However, it is also
+possible to manually close a <code>File</code>.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='builtin.Function.html'>Function</a></td>
+<td>
+The <code>Function</code> class represents a block of code to be called, which may or may
+not produce a value. <code>Function</code> values are first-class, and can be passed around
+as arguments, placed into a <code>List</code>, and so on.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='builtin.Hash.html'>Hash</a></td>
+<td>
+The <code>Hash</code> class provides a mapping between a key and a value. <code>Hash</code> values can
+be created through <code>[key1 =&gt; value1, key2 =&gt; value2, ...]</code>. When writing a
+<code>Hash</code>, the key is the first type, and the value is the second.
+/
+<code>[1 =&gt; &quot;a&quot;, 2 =&gt; &quot;b&quot;, 3 =&gt; &quot;c&quot;]</code> would therefore be written as
+<code>Hash[Integer, String]</code>.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='builtin.Integer.html'>Integer</a></td>
+<td>
+The <code>Integer</code> class is Lily&#39;s native numeric type. Internally, it is a wrapper
+over a C int64_t.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='builtin.List.html'>List</a></td>
+<td>
+The <code>List</code> class represents a container of a given type, written as
+<code>List[&lt;inner type&gt;]</code>. A <code>List</code> value can be accessed through a positive index or
+a negative one (with negative indexes being an offset from the end). Attempting
+to access an invalid index will produce <code>IndexError</code>.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='builtin.String.html'>String</a></td>
+<td>
+The <code>String</code> class provides a wrapper over a C char *. The <code>String</code> class is
+guaranteed to have a single &#39;\0&#39; terminator. Additionally, a <code>String</code> is
+guaranteed to always be valid utf-8.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='builtin.Tuple.html'>Tuple</a></td>
+<td>
+The <code>Tuple</code> class provides a fixed-size container over a set of types. <code>Tuple</code>
+is ideal for situations where a variety of data is needed, but a class is too
+complex.</td>
+</tr>
+</tbody></table>
+<h2>Enums</h2>
+<table><tbody>
+<tr>
+<td><a class='reflink' href='enum.Option.html'>Option</a></td>
+<td>
+The <code>Option</code> type presents a way to hold either a value of <code>A</code>, or <code>None</code>, with
+<code>None</code> being valid for any <code>Option</code>. A common use for this is as a return type
+for functions that may fail, but have no meaningful error message.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='enum.Result.html'>Result</a></td>
+<td>
+<code>Result</code> is an enum that holds either a <code>Failure</code> or <code>Success</code>. This enum is
+for situations where the function that fails has an error message to deliver.
+Examples of that include a database query or a more humble rpn calculator.</td>
+</tr>
+</tbody></table>
+<h2>Exceptions</h2>
+<table><tbody>
+<tr>
+<td><a class='reflink' href='class.AssertionError.html'>AssertionError</a></td>
+<td>
+This is a subclass of <code>Exception</code> that is raised when an <code>assert</code> is passed
+<code>false</code> as the first argument.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='class.DivisionByZeroError.html'>DivisionByZeroError</a></td>
+<td>
+The <code>DivisionByZeroError</code> is a subclass of <code>Exception</code> that is raised when
+trying to divide or modulo by zero.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='class.Exception.html'>Exception</a></td>
+<td>
+The <code>Exception</code> class is the base class of all exceptions. It defines two
+properties: A <code>message</code> as <code>String</code>, and a <code>traceback</code> as <code>List[String]</code>. The
+<code>traceback</code> field is rewritten whenever an exception instance is raised.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='class.IndexError.html'>IndexError</a></td>
+<td>
+The <code>DivisionByZeroError</code> is a subclass of <code>Exception</code> that is raised when
+trying to divide or modulo by zero.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='class.IOError.html'>IOError</a></td>
+<td>
+<code>IOError</code> is a subclass of <code>Exception</code> that is raised when an IO operation fails
+or does not have permission.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='class.KeyError.html'>KeyError</a></td>
+<td>
+<code>KeyError</code> is a subclass of <code>Exception</code> that is raised when trying to get an
+item from a <code>Hash</code> that does not exist.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='class.RuntimeError.html'>RuntimeError</a></td>
+<td>
+<code>RuntimeError</code> is a subclass of <code>Exception</code> that is raised when the recursion
+limit is exceeded, or when trying to modify a <code>Hash</code> while iterating over it.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='class.ValueError.html'>ValueError</a></td>
+<td>
+<code>ValueError</code> is a subclass of <code>Exception</code> that is raised when sending an
+improper argument to a function, such as trying to call <code>List.repeat</code> with a
+negative amount.</td>
+</tr>
+</tbody></table>
+<h2>Functions</h2>
+<h3 id='function.print'><code>define <a href='#function.print'>print</a>(value: A)</code></h3>
+<div class='doc'><p>
+Write <code>value</code> to <code>stdout</code>, plus a newline (<code>&quot;\n&quot;</code>). This is equivalent to
+<code>stdout.print(value)</code>.</p>
+<p># Errors:</p>
+<ul>
+<li><code>IOError</code> if <code>stdout</code> is closed, or not open for reading.</li>
+</ul></div>
+<h3 id='function.calltrace'><code>define <a href='#function.calltrace'>calltrace</a>: List[String]</code></h3>
+<div class='doc'><p>
+Returns a <code>List</code> with one <code>String</code> for each function that is currently entered.</p></div>
+<h3 id='function.assert'><code>define <a href='#function.assert'>assert</a>(condition: Boolean, message: *String = "")</code></h3>
+<div class='doc'><p>
+If <code>condition</code> is <code>false</code>, raise <code>AssertionError</code> using <code>message</code>.</p></div>
+<h2>Vars</h2>
+<h3 id='var.stdin'><code>var <a href='#var.stdin'>stdin</a>: File</code></h3>
+<div class='doc'><p>
+Provides a wrapper around the <code>stdin</code> present within C.</p></div>
+<h3 id='var.stderr'><code>var <a href='#var.stderr'>stderr</a>: File</code></h3>
+<div class='doc'><p>
+Provides a wrapper around the <code>stderr</code> present within C.</p></div>
+<h3 id='var.stdout'><code>var <a href='#var.stdout'>stdout</a>: File</code></h3>
+<div class='doc'><p>
+Provides a wrapper around the <code>stdout</code> present within C.</p></div>
+        </section>
+    </body>
+</html>

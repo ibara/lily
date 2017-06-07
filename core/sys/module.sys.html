@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>core.sys : Lily</title>
+        <link href="../../docstyle.css" rel="stylesheet">
+    </head>
+
+    <body role="document">
+        <section id='main'>
+<h1>Module sys</h1>
+<div class='doc'><p>
+The sys package provides access to the arguments given to Lily.</p></div>
+<h2>Functions</h2>
+<h3 id='function.getenv'><code>define <a href='#function.getenv'>getenv</a>(name: String): Option[String]</code></h3>
+<div class='doc'><p>
+Search the environment for <code>name</code>, returning either a <code>Some</code> with the contents,
+or <code>None</code>. Internally, this is a wrapper over C&#39;s getenv.</p></div>
+<h2>Vars</h2>
+<h3 id='var.argv'><code>var <a href='#var.argv'>argv</a>: List[String]</code></h3>
+<div class='doc'><p>
+This contains arguments sent to the program through the command-line. If Lily
+was not invoked from the command-line (ex: mod_lily), then this is empty.</p></div>
+        </section>
+    </body>
+</html>

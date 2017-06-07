@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>core.builtin.Option : Lily</title>
+        <link href="../../docstyle.css" rel="stylesheet">
+    </head>
+
+    <body role="document">
+        <section id='main'>
+<h1>Enum Option</h1>
+<pre>enum Option[A] {
+    Some(A),
+    None
+}</pre>
+<div class='doc'><p>
+The <code>Option</code> type presents a way to hold either a value of <code>A</code>, or <code>None</code>, with
+<code>None</code> being valid for any <code>Option</code>. A common use for this is as a return type
+for functions that may fail, but have no meaningful error message.</p></div>
+<h2>Methods</h2>
+<h3 id='method.and'><code>define <a href='#method.and'>and</a>(other: Option[B]): Option[B]</code></h3>
+<div class='doc'><p>
+If <code>self</code> is a <code>Some</code>, this returns <code>other</code>.</p>
+<p>Otherwise, this returns <code>None</code>.</p></div>
+<h3 id='method.and_then'><code>define <a href='#method.and_then'>and_then</a>(fn: Function(A => Option[B])): Option[B]</code></h3>
+<div class='doc'><p>
+If <code>self</code> is a <code>Some</code>, this calls <code>fn</code> with the value within the <code>Some</code>. The
+result is the result of the <code>Option</code> returned by <code>fn</code>.</p>
+<p>Otherwise, this returns <code>None</code>.</p></div>
+<h3 id='method.is_none'><code>define <a href='#method.is_none'>is_none</a>: Boolean</code></h3>
+<div class='doc'><p>
+If <code>self</code> is a <code>Some</code>, this returns <code>false</code>.</p>
+<p>Otherwise, this returns <code>true</code>.</p></div>
+<h3 id='method.is_some'><code>define <a href='#method.is_some'>is_some</a>: Boolean</code></h3>
+<div class='doc'><p>
+If <code>self</code> is a <code>Some</code>, this returns <code>true</code>.</p>
+<p>Otherwise, this returns <code>false</code>.</p></div>
+<h3 id='method.map'><code>define <a href='#method.map'>map</a>(fn: Function(A => B)): Option[B]</code></h3>
+<div class='doc'><p>
+If <code>self</code> is a <code>Some</code>, this returns a <code>Some</code> holding the result of <code>fn</code>.</p>
+<p>Otherwise, this returns <code>None</code>.</p></div>
+<h3 id='method.or'><code>define <a href='#method.or'>or</a>(alternate: Option[A]): Option[A]</code></h3>
+<div class='doc'><p>
+If <code>self</code> is a <code>Some</code>, this returns <code>self</code>.</p>
+<p>Otherwise, this returns <code>alternate</code>.</p></div>
+<h3 id='method.or_else'><code>define <a href='#method.or_else'>or_else</a>(fn: Function( => Option[A])): Option[A]</code></h3>
+<div class='doc'><p>
+If <code>self</code> is a <code>Some</code>, this returns <code>self</code>.</p>
+<p>Otherwise, this returns the result of calling <code>fn</code>.</p></div>
+<h3 id='method.unwrap'><code>define <a href='#method.unwrap'>unwrap</a>: A</code></h3>
+<div class='doc'><p>
+If <code>self</code> is a <code>Some</code>, this returns the value contained within.</p>
+<div class='linkblock' id='errors.method.unwrap'><a href='#errors.method.unwrap'>Errors</a></div>
+<ul>
+<li><code>ValueError</code> if <code>self</code> is <code>None</code>.</li>
+</ul></div>
+<h3 id='method.unwrap_or'><code>define <a href='#method.unwrap_or'>unwrap_or</a>(alternate: A): A</code></h3>
+<div class='doc'><p>
+If <code>self</code> is a <code>Some</code>, this returns the value with <code>self</code>.</p>
+<p>Otherwise, this returns <code>alternate</code>.</p></div>
+<h3 id='method.unwrap_or_else'><code>define <a href='#method.unwrap_or_else'>unwrap_or_else</a>(fn: Function( => A)): A</code></h3>
+<div class='doc'><p>
+If <code>self</code> is a <code>Some</code>, this returns the value with <code>self</code>.</p>
+<p>Otherwise, this returns the result of calling <code>fn</code>.</p></div>
+        </section>
+    </body>
+</html>

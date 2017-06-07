@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>core : Lily</title>
+        <link href="../docstyle.css" rel="stylesheet">
+    </head>
+
+    <body role="document">
+        <section id='main'>
+<h1>Module core</h1>
+<div class='doc'><p>
+Psuedo root of all pre-registered modules.</p>
+<p>This is a fake module created to link together all of the modules that are
+automatically loaded in the interpreter.</p>
+<p>Except for the <code>builtin</code> module, all modules listed here can be imported from
+any file inside of the interpreter. This is unlike other modules, which are
+loaded using relative paths. These modules can be imported like <code>import sys</code>,
+then used like <code>print(sys.argv)</code>.</p>
+<p>The <code>builtin</code> module is unique because the classes, enums, and functions are the
+foundation of the interpreter. Instead of requiring it to be imported, the
+contents of <code>builtin</code> are instead available without a namespace.</p></div>
+<h2>Modules</h2>
+<table><tbody>
+<tr>
+<td><a class='reflink' href='builtin/module.builtin.html'>builtin</a></td>
+<td>
+The builtin package provides the classes, vars, and functions that form the
+foundation of Lily.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='random/module.random.html'>random</a></td>
+<td>
+The random package provides access to a Mersenne Twister for pseudo-random
+number generation.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='sys/module.sys.html'>sys</a></td>
+<td>
+The sys package provides access to the arguments given to Lily.</td>
+</tr>
+<tr>
+<td><a class='reflink' href='time/module.time.html'>time</a></td>
+<td>
+The time package provides access to basic time information on the system.</td>
+</tr>
+</tbody></table>
+        </section>
+    </body>
+</html>

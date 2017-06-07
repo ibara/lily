@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>core.builtin.Hash : Lily</title>
+        <link href="../../docstyle.css" rel="stylesheet">
+    </head>
+
+    <body role="document">
+        <section id='main'>
+<h1>Class Hash</h1>
+<pre>(builtin) class Hash[A, B] {  }</pre>
+<div class='doc'><p>
+The <code>Hash</code> class provides a mapping between a key and a value. <code>Hash</code> values can
+be created through <code>[key1 =&gt; value1, key2 =&gt; value2, ...]</code>. When writing a
+<code>Hash</code>, the key is the first type, and the value is the second.
+/
+<code>[1 =&gt; &quot;a&quot;, 2 =&gt; &quot;b&quot;, 3 =&gt; &quot;c&quot;]</code> would therefore be written as
+<code>Hash[Integer, String]</code>.</p>
+<p>Currently, only <code>Integer</code> and <code>String</code> can be used as keys.</p></div>
+<h2>Methods</h2>
+<h3 id='method.clear'><code>define <a href='#method.clear'>clear</a></code></h3>
+<div class='doc'><p>
+Removes all pairs currently present within <code>self</code>.</p>
+<div class='linkblock' id='errors.method.clear'><a href='#errors.method.clear'>Errors</a></div>
+<ul>
+<li><code>RuntimeError</code> if <code>self</code> is currently being iterated over.</li>
+</ul></div>
+<h3 id='method.delete'><code>define <a href='#method.delete'>delete</a>(key: A)</code></h3>
+<div class='doc'><p>
+Attempt to remove <code>key</code> from <code>self</code>. If <code>key</code> is not present within <code>self</code>, then
+nothing happens.</p>
+<div class='linkblock' id='errors.method.delete'><a href='#errors.method.delete'>Errors</a></div>
+<ul>
+<li><code>RuntimeError</code> if <code>self</code> is currently being iterated over.</li>
+</ul></div>
+<h3 id='method.each_pair'><code>define <a href='#method.each_pair'>each_pair</a>(fn: Function(A, B))</code></h3>
+<div class='doc'><p>
+Iterate through each pair that is present within <code>self</code>. For each of the pairs,
+call <code>fn</code> with the key and value of each pair.</p></div>
+<h3 id='method.get'><code>define <a href='#method.get'>get</a>(key: A, default: B): B</code></h3>
+<div class='doc'><p>
+Attempt to find <code>key</code> within <code>self</code>. If <code>key</code> is present, then the value
+associated with it is returned. If <code>key</code> cannot be found, then <code>default</code> is
+returned instead.</p></div>
+<h3 id='method.has_key'><code>define <a href='#method.has_key'>has_key</a>(key: A): Boolean</code></h3>
+<div class='doc'><p>
+Return <code>true</code> if <code>key</code> is present within <code>self</code>, <code>false</code> otherwise.</p></div>
+<h3 id='method.keys'><code>define <a href='#method.keys'>keys</a>: List[A]</code></h3>
+<div class='doc'><p>
+Construct a <code>List</code> containing all values that are present within <code>self</code>. There
+is no guarantee of the ordering of the resulting <code>List</code>.</p></div>
+<h3 id='method.map_values'><code>define <a href='#method.map_values'>map_values</a>(fn: Function(B => C)): Hash[A, C]</code></h3>
+<div class='doc'><p>
+This iterates through <code>self</code> and calls <code>fn</code> for each element present. The result
+of this function is a newly-made <code>Hash</code> where each value is the result of the
+call to <code>fn</code>.</p></div>
+<h3 id='method.merge'><code>define <a href='#method.merge'>merge</a>(others: Hash[A, B]...): Hash[A, B]</code></h3>
+<div class='doc'><p>
+Create a new <code>Hash</code> that holds the result of <code>self</code> and each <code>Hash</code> present
+within <code>others</code>.</p>
+<p>When duplicate elements are found, the value of the right-most <code>Hash</code> wins.</p></div>
+<h3 id='method.reject'><code>define <a href='#method.reject'>reject</a>(fn: Function(A, B => Boolean)): Hash[A, B]</code></h3>
+<div class='doc'><p>
+This calls <code>fn</code> for each element present within <code>self</code>. The result of this
+function is a newly-made <code>Hash</code> containing all values for which <code>fn</code> returns
+<code>false</code>.</p></div>
+<h3 id='method.select'><code>define <a href='#method.select'>select</a>(fn: Function(A, B => Boolean)): Hash[A, B]</code></h3>
+<div class='doc'><p>
+This calls <code>fn</code> for each element present within <code>self</code>. The result of this
+function is a newly-made <code>Hash</code> containing all values for which <code>fn</code> returns
+<code>true</code>.</p></div>
+<h3 id='method.size'><code>define <a href='#method.size'>size</a>: Integer</code></h3>
+<div class='doc'><p>
+Returns the number of key+value pairs present within <code>self</code>.</p></div>
+        </section>
+    </body>
+</html>

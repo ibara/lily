@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>core.builtin.Tuple : Lily</title>
+        <link href="../../docstyle.css" rel="stylesheet">
+    </head>
+
+    <body role="document">
+        <section id='main'>
+<h1>Class Tuple</h1>
+<pre>(builtin) class Tuple {  }</pre>
+<div class='doc'><p>
+The <code>Tuple</code> class provides a fixed-size container over a set of types. <code>Tuple</code>
+is ideal for situations where a variety of data is needed, but a class is too
+complex.</p>
+<p><code>Tuple</code> literals are created by <code>&lt;[value1, value2, ...]&gt;</code>. Member of the <code>Tuple</code>
+class can be accessed through subscripts. Unlike <code>List</code>, <code>Tuple</code> does not
+support negative indexes.</p>
+<p>Operations on the <code>Tuple</code> class use the types <code>1</code> and <code>2</code>. These are special
+types that match against any number of types. This allows <code>Tuple</code> operations to
+work on all <code>Tuple</code> instances, regardless of the number of elements within the
+<code>Tuple</code> (sometimes considered its arity).</p></div>
+<h2>Methods</h2>
+<h3 id='function.merge'><code>define <a href='#function.merge'>merge</a>(self: Tuple[1], other: Tuple[2]): Tuple[1, 2] <i>static</i></code></h3>
+<div class='doc'><p>
+Build a new <code>Tuple</code> composed of the contents of <code>self</code> and the contents of
+<code>other</code>.</p></div>
+<h3 id='function.push'><code>define <a href='#function.push'>push</a>(self: Tuple[1], other: A): Tuple[1, A] <i>static</i></code></h3>
+<div class='doc'><p>
+Build a new <code>Tuple</code> composed of the contents of <code>self</code> and <code>other</code>.</p></div>
+        </section>
+    </body>
+</html>
