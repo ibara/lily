@@ -1,0 +1,3 @@
+define ends_with(a: String, b: String) {  }
+
+var s = "".ends_with("")

@@ -1,0 +1,1 @@
+class error(msg: String) < Exception(msg) {  }
